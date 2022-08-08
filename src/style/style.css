@@ -1,19 +1,18 @@
-body {
-  background-color: #2a2727;
-}
-
-body main {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (minmax(250px, 1fr))[auto-fit];
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-gap: 20px;
-  padding: 20px;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  html {
+    font-family: Proxima Nova, system-ui, sans-serif;
+  }
 }
 
 body main .pokemon-card {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   text-align: center;
   width: 100%;
-  background-color: red;
+  text-decoration: none;
 }
 /*# sourceMappingURL=style.css.map */

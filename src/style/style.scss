@@ -1,15 +1,23 @@
-body{
-    background-color: rgb(42, 39, 39);
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-    main{
-        display:grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        grid-gap: 20px;
-        padding: 20px;
-        .pokemon-card{
-            text-align: center;
-            width: 100%;
-            background-color: red;
-        }
+@layer base {
+    html {
+      font-family: Proxima Nova, system-ui, sans-serif;
     }
+  }
+
+
+body {
+    
+  main {
+    
+    .pokemon-card {
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+      text-decoration: none;
+    }
+  }
 }
