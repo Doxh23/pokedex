@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../utils";
 import { useParams } from "react-router-dom";
+import  {colorType} from "../utils"
 const SinglePokemon = () => {
   const [pokemon, setpokemon] = useState({});
   const [loading, setloading] = useState(true)
@@ -17,12 +18,21 @@ const SinglePokemon = () => {
   console.log(pokemon)
   return (
     <>
-    {!loading? (<div className="card-singlePokemon  p-0 w-full" style={{color: "white"}}>
-        <h1 className="name">{pokemon.name}</h1>
-        <div className="sprite">
-            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${params.id}.png`} alt={pokemon.name} />
+    {!loading? (<div className="card-singlePokemon  w-full" style={{backgroundColor: colorType[pokemon.types[0].type.name],color: "white" }}>
+        <h1 className="name" >{pokemon.name}</h1>
+        <div className="sprite w-1/5 m-auto">
+            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${params.id}.png`} className="m-auto" alt={pokemon.name} />
         </div>
-        <div className="carac-general flex w-12/12 m-0 bg-slate-200">
+        <div  className=" m-auto rounded-t-[75px] bg-purple-900  information w-full">
+           
+       
+        <div className="onglet flex flex-row w-full   pt-[40px] justify-between">
+                <div  className="about  border border-solid w-full  border-slate-600 text-center"> about</div>
+                <div className="carac w-full text-center"> Base stats</div>
+                <div className="ability w-full text-center"> Evolution</div>
+                <div className="moves w-full text-center"> Moves</div>
+            </div>
+        <div className="carac-general flex flex-col w-full  rounded-lg ">
         <div className="types">
             {pokemon.types?.map((type) => {  return <p key={type.type.name}>{type.type.name}</p> })}
         </div>
@@ -42,6 +52,7 @@ const SinglePokemon = () => {
         </div>
         <div className="moves">
             {pokemon.moves?.map((move) => {  return <p key={move.move.name}>{move.move.name}</p> })}
+        </div>
         </div>
 
 

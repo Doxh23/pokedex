@@ -6,13 +6,4 @@
     font-family: Proxima Nova, system-ui, sans-serif;
   }
 }
-
-body main .pokemon-card {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  text-align: center;
-  width: 100%;
-  text-decoration: none;
-}
 /*# sourceMappingURL=style.css.map */

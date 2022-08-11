@@ -7,7 +7,7 @@ const Pokemon = (props) => {
    let  {pokemon,takePokemonId} = props
   return (
     <Link className="pokemon-card" style={{backgroundColor: "transparent"}} to={`/SinglePokemon/${takePokemonId(pokemon.url)}`} key={takePokemonId(pokemon.url)}>
-    <div className=' rounded bg-purple-900 hover:bg-purple-500 pokemon-card' key={takePokemonId(pokemon.url)}>
+    <div className=' rounded my-4 bg-purple-900 hover:bg-purple-500 pokemon-card' key={takePokemonId(pokemon.url)}>
     
                 <h2>{pokemon.name}</h2>
                 <img className='m-auto'

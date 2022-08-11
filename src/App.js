@@ -1,14 +1,11 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { Reset } from "styled-reset";
-import axios from "axios";
 import "./style/style.css";
 import { api } from "./component/utils";
-import PokemonList from "./component/MainContent/PokemonList";
-import { Routes, Route } from "react-router-dom";
-import SinglePokemon from "./component/single pokemon/SinglePokemon";
 import Component from "./component/Component";
 import  Category  from "./component/MainContent/Category";
+import {useLocation} from 'react-router-dom'
 function App() {
   const [Search, setSearch] = useState("");
   const [PokemonData, setPokemonData] = useState([]);
@@ -16,6 +13,7 @@ function App() {
   const [category, setcategory] = useState("");
   const [loading, setloading] = useState(true);
   const [test, settest] = useState({})
+  const location = useLocation();
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -46,18 +44,15 @@ function App() {
  
   console.log(PokemonData)
   return (
-    <div className="App w-screen bg-gray-900">
+    <div className="App  bg-gray-900">
       <Reset />
     {
      !loading ? (
         <>
-        <header>
-        <h1 className="text-center text-6xl text-white ">Pokedex</h1>
-        <p className="text-white mb-2">gotta catch'em all </p>
-       
-      </header>
-      <Category category={category} setPokemonData={setPokemonData} />
       <main className="">
+        {location.pathname === "/" ? (       <Category category={category} setPokemonData={setPokemonData} />
+) : ( null )}
+      <Category category={category} setPokemonData={setPokemonData} />
         <Component  PokemonData={PokemonData} loading={loading} setPokemonData={setPokemonData} category={category} setcategory={setcategory} />
       </main>
       </>) : (  <div>Loading...</div> 
