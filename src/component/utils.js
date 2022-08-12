@@ -7,7 +7,7 @@ import axios from 'axios';
     
 }
     const colorType = {
-      grass: "#78C850",
+      grass: "#49d0b0",
       poison: "#A040A0",
       fire: "#F08030",
       flying: "#A890F0",

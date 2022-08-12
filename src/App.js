@@ -37,6 +37,7 @@ function App() {
       console.log(data);
       setcategory(data.results);
     };
+    
     fetchDataPokemon();
    fetchDataCategory();
     setloading(false)
