@@ -2,16 +2,20 @@ import { useEffect, useState } from "react";
 import { api } from "../utils";
 import { useParams } from "react-router-dom";
 import  {colorType} from "../utils"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faMars,faVenus} from '@fortawesome/free-solid-svg-icons'
 const SinglePokemon = () => {
   const [pokemon, setpokemon] = useState({});
   const [loading, setloading] = useState(true)
   const params = useParams();
+   const RatioToPercent = (ratio) => {  return (100/(ratio+1)*ratio).toFixed(0) }   
+   console.log(RatioToPercent(2))           
   useEffect(() => {
     let data1 = {};
     let data2 = {};
     const fetchData = async () => {
       data1 = await api(`https://pokeapi.co/api/v2/pokemon/${params.id}`);
-        data2 = await api(data1.species.url);
+    data2 = await api(data1.species.url);
         setpokemon({    ...data1,   ...data2});
         setloading(false)
     };
@@ -51,6 +55,25 @@ const SinglePokemon = () => {
                     <hr className=""/>
                     <p>{pokemon.height}</p>
                     </div>
+            </div>
+            <div className="breading  ml-5  flex flex-col items-start">
+                <h3 className="text-slate-900 font-black">Breading</h3>
+                <div className="Gender flex flex-row gap-4 w-full gap">
+                    <h4 className="text-start text-slate-500 w-1/6">Gender</h4>
+                    <p>     <FontAwesomeIcon icon={faMars} className="text-blue-200" /> {100-RatioToPercent(pokemon.gender_rate)}</p> 
+                    <p className="female flex flex-row gap-4 "> 
+                    <FontAwesomeIcon icon={faVenus} className=" text-pink-400" /> {RatioToPercent(pokemon.gender_rate)}
+                     </p>
+                </div>
+                <div className="eggGroup flex flex-row gap-4  w-full ">
+                    <h4 className="text-start text-slate-500 w-1/6 ">Egg group</h4>
+                    <div className="eggType"> {pokemon.egg_groups[0].name} </div>
+                </div>
+                <div className="eggCycle flex flex-row  w-full gap-4">
+                    <h4 className="text-start text-slate-500 w-1/6 " >egg cycle</h4> 
+                    <div className="eggCycle">{pokemon.types[0].type.name}</div>    
+                </div>
+
             </div>
        </div>
         {/* <div className="stats">

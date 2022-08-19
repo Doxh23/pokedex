@@ -51,9 +51,14 @@ function App() {
      !loading ? (
         <>
       <main className="">
-        {location.pathname === "/" ? (       <Category category={category} setPokemonData={setPokemonData} />
+        {location.pathname === "/" ? (   <>
+         
+          <h1 className="text-center text-white text-9xl font-bold">  Pokedex </h1>
+          <p className="text-center text-white text-4xl font-bold"> Catch Them All </p>
+          <Category category={category} setPokemonData={setPokemonData} />
+
+        </>  
 ) : ( null )}
-      <Category category={category} setPokemonData={setPokemonData} />
         <Component  PokemonData={PokemonData} loading={loading} setPokemonData={setPokemonData} category={category} setcategory={setcategory} />
       </main>
       </>) : (  <div>Loading...</div> 
