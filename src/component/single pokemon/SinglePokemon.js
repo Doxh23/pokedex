@@ -7,42 +7,68 @@ import {faMars,faVenus} from '@fortawesome/free-solid-svg-icons'
 const SinglePokemon = () => {
   const [pokemon, setpokemon] = useState({});
   const [loading, setloading] = useState(true)
+  const [tabActive, settabActive] = useState("About")
+  const [PokemonColor, setPokemonColor] = useState("")
+  const handleTabsChange = (e) =>{
+    let tabs = ""
+    switch (e) {
+        case "About":
+            tabs="About"
+            break;
+        case "Evolution":
+            tabs="Evolution"
+            break
+        case "BaseStats":
+            tabs="BaseStats"
+            break
+        case "Moves":
+            tabs="Moves"
+            break
+        default:
+            tabs = null
+            break;
+    }
+
+    settabActive(tabs)
+  }
   const params = useParams();
    const RatioToPercent = (ratio) => {  return (100/(ratio+1)*ratio).toFixed(0) }   
-   console.log(RatioToPercent(2))           
   useEffect(() => {
     let data1 = {};
     let data2 = {};
     const fetchData = async () => {
       data1 = await api(`https://pokeapi.co/api/v2/pokemon/${params.id}`);
     data2 = await api(data1.species.url);
-        setpokemon({    ...data1,   ...data2});
+    
+         setpokemon({    ...data1,   ...data2});
         setloading(false)
+            
     };
     fetchData();
+
   }, []);
-  console.log(pokemon)
   return (
     <>
-    {!loading? (<div className="card-singlePokemon  w-full" style={{backgroundColor: colorType[pokemon.types[0].type.name],color: "black" }}>
+                
+    {!loading? (<div className="card-singlePokemon  w-full h-full" style={{backgroundColor: colorType[pokemon?.types[0]?.type?.name],color: "black" }}>
         <h1 className="name" >{pokemon.name}</h1>
         <div className="sprite w-1/5 flex m-auto">
             <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${params.id}.png`} className="m-auto min-w-full min-h-full" alt={pokemon.name} />
         </div>
-        <div  className=" m-auto rounded-t-[75px] bg-white  information w-full">
+        <div  className=" m-auto rounded-t-[75px] bg-white mb-2  information w-full h-full">
         <div className="types flex flex-column justify-around pt-2">
             {pokemon.types?.map((type) => {  return <p key={type.type.name}>{type.type.name}</p> })}
         </div>
        
-        <div className="onglet flex flex-row w-full  mx-[10px] pt-[20px] justify-between">
-                <div  className="about  hover:text-red-500 font-semibold w-full cursor-pointer  text-center"> about</div>
-                <div className="carac w-full text-center hover:text-red-500 font-semibold cursor-pointer"> Base stats</div>
-                <div className="ability w-full text-center hover:text-red-500 font-semibold cursor-pointer"> Evolution</div>
-                <div className="moves w-full text-center hover:text-red-500 font-semibold cursor-pointer"> Moves</div>
+        <div className="onglet flex flex-row w-full pt-[20px] justify-between">
+                <div style={tabActive === "About"? {color: colorType[pokemon?.types[0]?.type?.name]}: null} onClick={()=> handleTabsChange("About")} className="about  hover:text-red-500 font-semibold w-full cursor-pointer  text-center"> about</div>
+                <div style={tabActive === "BaseStats"? {color: colorType[pokemon?.types[0]?.type?.name]}: null} onClick={()=> handleTabsChange("BaseStats")}  className="carac w-full text-center hover:text-red-500 font-semibold cursor-pointer"> Base stats</div>
+                <div style={tabActive === "Evolution"? {color:colorType[pokemon?.types[0]?.type?.name]}: null} onClick={()=> handleTabsChange("Evolution")} className="ability w-full text-center hover:text-red-500 font-semibold cursor-pointer"> Evolution</div>
+                <div style={tabActive === "Moves"? {color: colorType[pokemon?.types[0]?.type?.name]}: null} onClick={()=> handleTabsChange("Moves")} className="moves w-full text-center hover:text-red-500 font-semibold cursor-pointer"> Moves</div>
             </div>
-            <hr className="border bg-slate-400 mx-auto my-5 w-11/12 text-slate-600" />
+            <hr className="bg-slate-400 mx-auto my-5 w-11/12 text-slate-600" />
         <div className="carac-general flex flex-col w-full  rounded-lg ">
-        <div className="about text-center">
+        <div className="about text-center" style={tabActive === "About"? {display: "inline"}: {display: "none"}} onClick={()=> handleTabsChange("About")}>
             <p>{pokemon.species? (pokemon.flavor_text_entries[15].flavor_text ): "" }</p>
             <div className="morphology w-7/12 m-auto my-10 flex flex-row justify-center gap-20 shadow-lg shadow-slate-600 rounded border border-solid border-slate-300">
                 <div className="weight my-auto">
@@ -76,9 +102,9 @@ const SinglePokemon = () => {
 
             </div>
        </div>
-        {/* <div className="stats">
+        <div className="stats w-full m-auto">
             {pokemon.stats?.map((stat) => {  return <p key={stat.stat.name}>{stat.stat.name} : {stat.base_stat}</p> })}
-        </div> */}
+        </div>
         </div>
        
         {/* <div className="abilities hidden">

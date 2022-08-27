@@ -6,4 +6,8 @@
     font-family: Proxima Nova, system-ui, sans-serif;
   }
 }
+
+.active {
+  color: red;
+}
 /*# sourceMappingURL=style.css.map */
