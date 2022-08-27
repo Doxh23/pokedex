@@ -47,6 +47,7 @@ const SinglePokemon = () => {
     fetchData();
 
   }, []);
+  console.log(pokemon)
   return (
     <>
                 

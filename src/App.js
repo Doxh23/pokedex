@@ -24,9 +24,7 @@ function App() {
     console.log(e.target.value);
   };
   const handleOffSet = (e) => { 
-    if(PokemonData.count <= offSet){
-      return
-    }
+   
     switch (e) {
       case "next":
         setOffSet(offSet + 20);
@@ -63,7 +61,7 @@ function App() {
     setloading(false)
   }, [offSet]);
  
-  console.log(PokemonData)
+  console.log(PokemonData.results)
   return (
     <div className="App w-auto inline-block bg-gray-900">
       <Reset />
@@ -82,10 +80,10 @@ function App() {
         <Component  PokemonData={PokemonData.results} loading={loading} setPokemonData={setPokemonData} category={category} setcategory={setcategory} />
        
       </main>
-      <div className="flex flex-row fixed m-[auto]  top-[95%] text-center  justify-center gap-5">
-        <FontAwesomeIcon icon={faLeftLong} onClick={ () => handleOffSet("prev")} className="text-blue-200 hover:text-violet-500 text-4xl" />
-
-        <FontAwesomeIcon icon={faRightLong} onClick={()=> handleOffSet("next")} className="text-blue-200 hover:text-violet-500 text-4xl" />
+      <div className="flex flex-row fixed m-auto w-full justify-center  top-[95%]  gap-5">
+        {offSet === 0 ? null : (        <FontAwesomeIcon icon={faLeftLong} onClick={ () => handleOffSet("prev")} className="text-blue-200 hover:text-violet-500 text-4xl" />
+) }
+        {PokemonData.count < offSet+20 ? null : (        <FontAwesomeIcon icon={faRightLong} onClick={ () => handleOffSet("next")} className="text-blue-200 hover:text-violet-500 text-4xl" />  )}
         </div>
       </>) : (  <div>Loading...</div> 
       )
