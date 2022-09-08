@@ -19,6 +19,7 @@ const SinglePokemon = () => {
   const [tabActive, settabActive] = useState("About");
   const [evolution, setEvolution] = useState({});
   const [PokemonColor, setPokemonColor] = useState("");
+  const [test, settest] = useState(true);
   const [ability, setability] = useState("");
   const { id } = useParams();
 
@@ -102,7 +103,15 @@ const SinglePokemon = () => {
           <div className=" m-auto rounded-t-[75px] bg-white  information w-full h-full">
             <div className="types flex flex-column justify-around pt-2">
               {pokemon.types?.map((type) => {
-                return <p key={type.type.name}>{type.type.name}</p>;
+                return (
+                  <p
+                    style={{ color: colorType[type.type.name] }}
+                    className={`w-full font-bold text-center`}
+                    key={type.type.name}
+                  >
+                    {type.type.name}
+                  </p>
+                );
               })}
             </div>
 
@@ -230,7 +239,7 @@ const SinglePokemon = () => {
                     </div>
                     {ability ? (
                       <>
-                        <h3>{ability?.name}</h3>
+                        <h3 className={` underline mb-5`}>{ability?.name}</h3>
                         <p>
                           {Object.keys(ability?.effect_entries).map(
                             (key, index) => {
@@ -353,7 +362,7 @@ const SinglePokemon = () => {
                   }}
                   className="stats flex flex-row justify-around w-[90%] rounded  m-auto "
                 >
-                  <div className="stat flex flex-row items-center gap-5 text-center h-[300px] rounded-t   w-full">
+                  <div className="stat flex flex-row items-center gap-3 text-center h-[300px] rounded-t   w-full">
                     {pokemon.stats?.map((stat) => {
                       return (
                         <div
@@ -420,7 +429,10 @@ const SinglePokemon = () => {
           </div>
         </div>
       ) : (
-        <div>Loading...</div>
+        <div className="w-screen h-screen text-center bg-white text-white flex justify-center items-center ">
+          {" "}
+          <div className="spinner rounded-[50%]  border-b-2 w-20 h-20 animate-spin border-gray-900 border-solid"></div>
+        </div>
       )}
     </>
   );

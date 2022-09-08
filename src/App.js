@@ -3,8 +3,8 @@ import { useState } from "react";
 import { Reset } from "styled-reset";
 import "./style/style.css";
 import { api } from "./component/utils";
-import Component from "./component/Component";
-import  Category  from "./component/MainContent/Category";
+import Component from "./component/Screen";
+import  Category  from "./component/pages/Home/Category";
 import {useLocation} from 'react-router-dom'
 
 function App() {
@@ -50,7 +50,7 @@ function App() {
       <main className="w-screen inline-block flex-col h-auto relative bg-gray-900 ">
         {location.pathname === "/" ? (   <>
          
-          <h1 className="text-center text-white text-9xl font-bold">  Pokedex </h1>
+          <h1 className="text-center text-white text-9xl font-bold  pokeballCursor" onClick={()=> window.location.reload()}>  Pokedex </h1>
           <p className="text-center text-white text-4xl font-bold"> Catch Them All </p>
           <Category category={category} setPokemonData={setPokemonData} />
 

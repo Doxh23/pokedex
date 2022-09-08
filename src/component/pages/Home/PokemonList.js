@@ -1,5 +1,5 @@
 import React from "react";
-import Pokemon from "./Pokemon";
+import Pokemon from "../Home/Pokemon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightLong, faLeftLong } from "@fortawesome/free-solid-svg-icons";
 const PokemonList = (props) => {
@@ -38,6 +38,7 @@ const PokemonList = (props) => {
                 key={takePokemonId(pokemon.url)}
                 takePokemonId={takePokemonId}
                 pokemon={pokemon}
+               
               />
             );
           })}

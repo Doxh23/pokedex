@@ -1,8 +1,8 @@
 import React from 'react'
 import {Routes, Route} from 'react-router-dom'
-import PokemonList from './MainContent/PokemonList'
+import PokemonList from './pages/Home/PokemonList'
 import SinglePokemon from './single pokemon/SinglePokemon'
-import Category from './MainContent/Category'
+import Category from './pages/Home/Category'
 const Component = (props) => {
     let   {PokemonData,loading,category,setPokemonData,offSet,setOffSet} = props
   return (

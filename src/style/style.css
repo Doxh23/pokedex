@@ -10,4 +10,8 @@
 .active {
   color: red;
 }
+
+.pokeballCursor {
+  cursor: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"), auto;
+}
 /*# sourceMappingURL=style.css.map */
