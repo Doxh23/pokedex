@@ -87,7 +87,7 @@ const SinglePokemon = () => {
     <>
       {!loading ? (
         <div
-          className="card-singlePokemon  w-full h-full"
+          className="card-singlePokemon  w-[100%] h-full"
           style={{
             backgroundColor: colorType[pokemon?.types[0]?.type?.name],
             color: "black",

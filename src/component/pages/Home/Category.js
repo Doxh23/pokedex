@@ -32,6 +32,7 @@ const Category = (props) => {
           <div className="category text-center m-auto w-4/5">
             {category &&
               category.map((category) => {
+                if(category.name !== "unknown" && category.name !== "shadow"){
                 return (
                   <button
                     style={{ backgroundColor: `${colorType[category.name]}` }}
@@ -41,7 +42,7 @@ const Category = (props) => {
                   >
                     {category.name}
                   </button>
-                );
+                );}
               })}
           </div>
           <hr className="w-3/5 m-auto mt-2" />

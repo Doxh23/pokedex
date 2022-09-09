@@ -35,10 +35,11 @@ function App() {
   }, [offSet]);
 
   return (
-    <div className="App  inline-block h-auto ">
+    <div className="App w-[100%]  inline-block h-auto ">
+      <NavBar />
       {!loading ? (
         <>
-          <main className=" inline-block flex-col h-auto relative pokeballCursor bg-gray-900 ">
+          <main className=" inline-block w-[100%] flex-col h-auto relative pokeballCursor bg-gray-900 ">
             {location.pathname === "/" ? (
               <>
                 <h1

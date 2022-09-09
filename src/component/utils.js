@@ -25,7 +25,5 @@ import axios from 'axios';
       ice: "#98D8D8",
       ghost: "#705898",
       fighting: "#C03028",
-      shadow: "#000000",
-      unknown: "#000000",
     };
  export {api,colorType};
