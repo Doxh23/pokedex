@@ -58,10 +58,11 @@ const SinglePokemon = () => {
     data = data.chain;
     do {
       workingData = await api(data.species.url);
-      data = data.evolves_to[0];
+      workingData.evolution_details = data.evolution_details;
       setEvolution((prev) => {
         return { ...prev, [workingData.name]: workingData };
       });
+      data = data.evolves_to[0];
     } while (data);
   };
   const params = useParams();
@@ -92,7 +93,9 @@ const SinglePokemon = () => {
             color: "black",
           }}
         >
-          <h1 className="name">{pokemon.name}</h1>
+          <h1 className="name text-center text-white pt-5 text-6xl font-semibold">
+            {pokemon.name}
+          </h1>
           <div className="sprite w-1/5 flex m-auto">
             <img
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${params.id}.png`}
@@ -114,7 +117,7 @@ const SinglePokemon = () => {
                 );
               })}
             </div>
-
+            <hr className="bg-slate-400 mx-auto my-5 w-7/12 h-[2px] text-slate-800" />
             <div className="onglet flex flex-row w-full pt-[20px] justify-between">
               <div
                 style={
@@ -168,7 +171,7 @@ const SinglePokemon = () => {
                 Moves
               </div>
             </div>
-            <hr className="bg-slate-400 mx-auto my-5 w-11/12 text-slate-600" />
+            <hr className="bg-slate-400 mx-auto my-5 w-11/12 h-[2px] text-slate-600" />
             <div className="carac-general flex flex-col w-full  rounded-lg ">
               <div
                 className="about text-center"
@@ -371,7 +374,9 @@ const SinglePokemon = () => {
                           <div className="bar h-[230px]  content-between rounded-b-md rotate-180 shadow">
                             <div
                               className="barProgress rounded-b-md bg-white"
-                              style={{ height: `${stat.base_stat}%` }}
+                              style={{
+                                height: `${(stat.base_stat / 250) * 100}%`,
+                              }}
                             ></div>
                           </div>
                           <div className="information text-white font-[600]">
@@ -392,7 +397,7 @@ const SinglePokemon = () => {
                     : { display: "none" }
                 }
               >
-                <div className="evolution flex flex-row gap-10 w-full justify-center">
+                <div className="evolution flex flex-row gap-10 w-full justify-evenly">
                   {Object.keys(evolution).map((key, index) => {
                     return (
                       <Link
@@ -408,8 +413,17 @@ const SinglePokemon = () => {
                             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evolution[key].id}.png`}
                           />
                         </div>
+                        <div className="evolutionType">
+                          {evolution[key].evolution_details[0]?.trigger?.name}
+                        </div>
                         <div className="evolutionLevel">
-                          {evolution[key].level}
+                          {evolution[key].evolution_details[0]?.min_level
+                            ? evolution[key].evolution_details[0]?.min_level +
+                              " Min Level"
+                            : evolution[key].evolution_details[0]?.min_happiness
+                            ? evolution[key].evolution_details[0]
+                                ?.min_happiness + " minimum Happiness"
+                            : ""}
                         </div>
                       </Link>
                     );

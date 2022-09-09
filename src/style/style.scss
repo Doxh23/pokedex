@@ -1,17 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
 
-@layer base {
-    html {
-      font-family: Proxima Nova, system-ui, sans-serif;
-    }
-  }
 
-  .active{
-    color:red;
-
-  }
   .pokeballCursor{
     cursor: url("https://image.emojipng.com/727/13737727.jpg"), auto;
   }

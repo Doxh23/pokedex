@@ -7,8 +7,8 @@ const NavBar = () => {
         <div className="navbar__logo">
             <h1>Pokedex</h1>
         </div>
-        <div className="navbar__menu">
-            <ul>
+        <div className="navbar__menu list-none">
+            <ul className='flex flex-row justify-end gap-10'>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">moves</a></li>
                 <li><a href="#">talents</a></li>
