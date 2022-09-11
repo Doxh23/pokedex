@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { api } from "../utils";
 import { useParams } from "react-router-dom";
-import { colorType } from "../utils";
+import { colorType,api } from "../../utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMars,
@@ -87,7 +86,7 @@ const SinglePokemon = () => {
     <>
       {!loading ? (
         <div
-          className="card-singlePokemon  w-[100%] h-full"
+          className="card-singlePokemon  "
           style={{
             backgroundColor: colorType[pokemon?.types[0]?.type?.name],
             color: "black",

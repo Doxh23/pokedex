@@ -37,13 +37,13 @@ function App() {
   return (
     <div className="App w-[100%]  inline-block h-auto ">
       <NavBar />
-      {!loading ? (
+            {!loading ? (
         <>
-          <main className=" inline-block w-[100%] flex-col h-auto relative pokeballCursor bg-gray-900 ">
+          <main className=" inline-block w-[100%]  flex-col h-auto relative pokeballCursor bg-gray-900 ">
             {location.pathname === "/" ? (
               <>
                 <h1
-                  className="text-center text-white text-9xl font-bold  "
+                  className="text-center text-white text-6xl md:text-9xl lg:text-[10rem] font-bold  "
                   onClick={() => window.location.reload()}
                 >
                   {" "}
