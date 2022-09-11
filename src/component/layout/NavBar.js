@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [isNavOpen, setisNavOpen] = useState(false);
-  const [handleScroll, sethandleScroll] = useState(false);
+  const [handleScroll, sethandleScroll] = useState(true);
   var oldScrollY = window.scrollY;
   window.onscroll = function (e) {
     if (window.scrollY < oldScrollY) {
@@ -20,6 +20,7 @@ const NavBar = () => {
     }
     else {
       sethandleScroll(false);
+      setisNavOpen(false);
       console.log("down");
     }
 
@@ -35,6 +36,7 @@ const NavBar = () => {
           className="mt-2 h-10 block right-0 relative   lg:hidden "
           onClick={() => {
             setisNavOpen((prev) => !prev);
+
           }}
         >
           <span
@@ -77,6 +79,7 @@ const NavBar = () => {
                 <FontAwesomeIcon
                   icon={faHome}
                   className="text-blue-200 hover:text-violet-500 text-4xl"
+                  onClick={() => setisNavOpen(false)}
                 />
               </Link>
             </li>
@@ -85,6 +88,8 @@ const NavBar = () => {
                 <FontAwesomeIcon
                   icon={faHollyBerry}
                   className="text-blue-200 hover:text-violet-500 text-4xl"
+                  onClick={() => setisNavOpen(false)}
+
                 />
                 moves
               </Link>
@@ -94,6 +99,8 @@ const NavBar = () => {
                 <FontAwesomeIcon
                   icon={faHollyBerry}
                   className="text-blue-200 hover:text-violet-500 text-4xl"
+                  onClick={() => setisNavOpen(false)}
+
                 />
                 Abilities
               </Link>
@@ -103,6 +110,8 @@ const NavBar = () => {
                 <FontAwesomeIcon
                   icon={faHollyBerry}
                   className="text-blue-200 hover:text-violet-500 text-4xl"
+                  onClick={() => setisNavOpen(false)}
+
                 />
                 items
               </Link>
@@ -112,6 +121,8 @@ const NavBar = () => {
                 <FontAwesomeIcon
                   icon={faHollyBerry}
                   className="text-blue-200 hover:text-violet-500 text-4xl"
+                  onClick={() => setisNavOpen(false)}
+
                 />
                 Moves
               </Link>
@@ -121,6 +132,8 @@ const NavBar = () => {
                 <FontAwesomeIcon
                   icon={faMapLocationDot}
                   className="text-blue-200 hover:text-violet-500 text-4xl"
+                  onClick={() => setisNavOpen(false)}
+
                 />
               </Link>
             </li>
@@ -129,6 +142,8 @@ const NavBar = () => {
                 <FontAwesomeIcon
                   icon={faHollyBerry}
                   className="text-blue-200 hover:text-violet-500 text-4xl"
+                  onClick={() => setisNavOpen(false)}
+
                 />
               </Link>
             </li>
