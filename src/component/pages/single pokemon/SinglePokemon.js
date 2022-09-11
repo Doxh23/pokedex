@@ -12,6 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import waitForElementTransition from "wait-for-element-transition";
+import Moves from "./Moves";
 const SinglePokemon = () => {
   const [pokemon, setpokemon] = useState({});
   const [loading, setloading] = useState(true);
@@ -431,14 +432,11 @@ const SinglePokemon = () => {
               </div>
             </div>
 
-            {/*
-        <div className="moves hidden">
-            {pokemon.moves?.map((move) => {  return <p key={move.move.name}>{move.move.name}</p> })}
+        <div className="moves">
+            {pokemon.moves?.map((move) => {  return (<Moves moveUrl={`${move.move.url}`} />) })}
         </div>
         
-        <div className="moves hidden">
-            {pokemon.moves?.map((move) => {  return <p key={move.move.name}>{move.move.name}</p> })}
-        </div> */}
+       {console.log(pokemon.moves)}
           </div>
         </div>
       ) : (

@@ -5,11 +5,17 @@ import {
   faMapLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link,useLocation } from "react-router-dom";
 
 const NavBar = () => {
   const [isNavOpen, setisNavOpen] = useState(false);
   const [handleScroll, sethandleScroll] = useState(true);
+  const location = useLocation();
+
+  useEffect(() => {
+    setisNavOpen(false);
+  }, [location]);
+
   var oldScrollY = window.scrollY;
   window.onscroll = function (e) {
     if (window.scrollY < oldScrollY) {
@@ -33,7 +39,7 @@ const NavBar = () => {
         style={{ transform: handleScroll ? "scaley(1)" : "scaley(0)" }}
       >
         <div
-          className="mt-2 h-10 block right-0 relative   lg:hidden "
+          className="mt-2 h-10 block right-0 relative  w-8  lg:hidden "
           onClick={() => {
             setisNavOpen((prev) => !prev);
 
