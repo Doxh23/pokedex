@@ -26,4 +26,10 @@ import axios from 'axios';
       ghost: "#705898",
       fighting: "#C03028",
     };
- export {api,colorType};
+    const categoryMove = {
+      physical: 'https://img.pokemondb.net/images/icons/move-physical.png',
+      special: "https://img.pokemondb.net/images/icons/move-special.png",
+      status: "https://img.pokemondb.net/images/icons/move-status.png",
+    };
+    
+ export {api,colorType,categoryMove};

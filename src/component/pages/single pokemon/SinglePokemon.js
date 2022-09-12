@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { colorType,api } from "../../utils";
+import { colorType, api } from "../../utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMars,
@@ -431,12 +431,84 @@ const SinglePokemon = () => {
                 </div>
               </div>
             </div>
+{/* 
+table.blueTable {
+  border: 1px solid #1C6EA4;
+  width: 100%;
+  height: 200%;
+  text-align: left;
+  border-collapse: collapse;
+}
+table.blueTable td, table.blueTable th {
+  border: 0px solid #AAAAAA;
+  padding: 3px 2px;
+}
+table.blueTable tbody td {
+  font-size: 15px;
+  color: #331B03;
+}
+table.blueTable tr:nth-child(even) {
+  background: #D0E4F5;
+}
+table.blueTable thead {
+  background: #1C6EA4;
+  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  border-bottom: 2px solid #444444;
+}
+table.blueTable thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
+  border-left: 2px solid #D0E4F5;
+}
+table.blueTable thead th:first-child {
+  border-left: none;
+}
 
-        <div className="moves">
-            {pokemon.moves?.map((move) => {  return (<Moves moveUrl={`${move.move.url}`} />) })}
-        </div>
-        
-       {console.log(pokemon.moves)}
+table.blueTable tfoot td {
+  font-size: 14px;
+}
+table.blueTable tfoot .links {
+  text-align: right;
+}
+table.blueTable tfoot .links a{
+  display: inline-block;
+  background: #1C6EA4;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+
+ */}
+            <div className="moves ">
+              <table className="border border-solid border-[#1cea] w-full h-[200%] text-left ">
+                <thead className=" border-b-slate-900 border-b-2 border-solid bg-[#1c6ea4] ">
+                  <tr className="gap-5 text-center">
+                    <th className=" text-[15px] px-5 font-semibold text-[#ffff] min-w-[40px] ">names</th>
+                    <th className=" text-[15px]px-5  font-semibold text-[#ffff] min-w-[40px] border-l-2 border-l-slate-400 border-solid">Type</th>
+                    <th className=" text-[15px] px-5  font-semibold text-[#ffff] min-w-[40px]  border-l-2 border-l-slate-400 border-solid">cat</th>
+                    <th className=" text-[15px]px-5  font-semibold text-[#ffff] min-w-[80px] border-l-2 border-l-slate-400 border-solid">power</th>
+                    <th className=" text-[15px]px-5  font-semibold text-[#ffff] first-letter:min-w-[40px]  border-l-2 border-l-slate-400 border-solid">accuracy</th>
+                    <th className=" text-[15px]px-5  font-semibold text-[#ffff] min-w-[60px]  border-l-2 border-l-slate-400 border-solid">pp</th>
+                    <th className=" text-[15px] px-5 font-semibold text-[#ffff] min-w-[40px] border-l-2 border-l-slate-400 border-solid">effect</th>
+                  </tr>
+                </thead>
+                <tbody className="text-[15px] text-[#331b03] ">
+                  {pokemon.moves?.map((move) => {
+                    return (
+                      <>
+                        <tr className=" even:bg-[#d0e4f5]">
+                          <Moves moveUrl={move.move.url} />
+                        </tr>
+                      </>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
           </div>
         </div>
       ) : (

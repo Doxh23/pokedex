@@ -10,6 +10,7 @@ import { Link,useLocation } from "react-router-dom";
 const NavBar = () => {
   const [isNavOpen, setisNavOpen] = useState(false);
   const [handleScroll, sethandleScroll] = useState(true);
+  const [widthScreen, setwidthScreen] = useState(window.screen.width);
   const location = useLocation();
 
   useEffect(() => {
@@ -32,9 +33,102 @@ const NavBar = () => {
 
     oldScrollY = window.scrollY;
   };
-  return (
-    <>
+  window.onresize = function (e) {
+    setwidthScreen(window.screen.width);
+  };
+  if(widthScreen >1024){
+    return (
+      <>
       <div
+        className="navbar  w-full flex flex-col lg:flex-row mb-2 justify-between  left-0 top-0 backdrop-blur-md backdrop-brightness-150	fixed  text-white font-semibold z-50 "
+        style={{ transform: handleScroll ? "scaley(1)" : "scaley(0)" }}
+      >
+       
+        <div className="navbar__logo bg-transparent  lg:block ">logo</div>
+        <div
+          className="navbar__menu list-none justify-center flex" >
+          <ul className="flex flex-col lg:flex-row justify-end text-center gap-10">
+            <li>
+              <Link to="/">
+                <FontAwesomeIcon
+                  icon={faHome}
+                  className="text-blue-200 hover:text-violet-500 text-4xl"
+                  onClick={() => setisNavOpen(false)}
+                />
+              </Link>
+            </li>
+            <li>
+              <Link to="/moves">
+                <FontAwesomeIcon
+                  icon={faHollyBerry}
+                  className="text-blue-200 hover:text-violet-500 text-4xl"
+                  onClick={() => setisNavOpen(false)}
+
+                />
+                moves
+              </Link>
+            </li>
+            <li>
+              <Link to="/abilities">
+                <FontAwesomeIcon
+                  icon={faHollyBerry}
+                  className="text-blue-200 hover:text-violet-500 text-4xl"
+                  onClick={() => setisNavOpen(false)}
+
+                />
+                Abilities
+              </Link>
+            </li>
+            <li>
+              <Link to="/items">
+                <FontAwesomeIcon
+                  icon={faHollyBerry}
+                  className="text-blue-200 hover:text-violet-500 text-4xl"
+                  onClick={() => setisNavOpen(false)}
+
+                />
+                items
+              </Link>
+            </li>
+            <li>
+              <Link to="/moves">
+                <FontAwesomeIcon
+                  icon={faHollyBerry}
+                  className="text-blue-200 hover:text-violet-500 text-4xl"
+                  onClick={() => setisNavOpen(false)}
+
+                />
+                Moves
+              </Link>
+            </li>
+            <li>
+              <Link to="/locations">
+                <FontAwesomeIcon
+                  icon={faMapLocationDot}
+                  className="text-blue-200 hover:text-violet-500 text-4xl"
+                  onClick={() => setisNavOpen(false)}
+
+                />
+              </Link>
+            </li>
+            <li>
+              <Link to="/berries">
+                <FontAwesomeIcon
+                  icon={faHollyBerry}
+                  className="text-blue-200 hover:text-violet-500 text-4xl"
+                  onClick={() => setisNavOpen(false)}
+
+                />
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+      </>
+    )
+
+  }else{
+    return (<><div
         className="navbar  w-full flex flex-col lg:flex-row mb-2 justify-between  left-0 top-0 backdrop-blur-md backdrop-brightness-150	fixed  text-white font-semibold z-50 "
         style={{ transform: handleScroll ? "scaley(1)" : "scaley(0)" }}
       >
@@ -156,8 +250,10 @@ const NavBar = () => {
           </ul>
         </div>
       </div>
-    </>
-  );
+      </>)
+  }
+
+
 };
 
 export default NavBar;
