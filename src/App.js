@@ -35,7 +35,7 @@ function App() {
   }, [offSet]);
 
   return (
-    <div className="App w-[100%]  inline-block h-auto ">
+    <div className="App w-[100%]  inline-block h-auto  scroll-smooth">
             {!loading ? (
         <>
           <main className=" inline-block w-[100%]  flex-col h-auto relative pokeballCursor bg-gray-900 ">

@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { colorType, api } from "../../utils";
+import About from "./About";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMars,
   faVenus,
   faQuestionCircle,
-  faCross,
-  faCrosshairs,
   faX,
+  faArrowUp
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import waitForElementTransition from "wait-for-element-transition";
 import Moves from "./Moves";
 const SinglePokemon = () => {
   const [pokemon, setpokemon] = useState({});
@@ -20,14 +19,16 @@ const SinglePokemon = () => {
   const [evolution, setEvolution] = useState({});
   const [PokemonColor, setPokemonColor] = useState("");
   const [test, settest] = useState(true);
-  const [ability, setability] = useState("");
   const { id } = useParams();
+const  topFunction =() => {
 
-  const fetchAbility = async (url) => {
-    const res = await api(url);
-    setability(res);
-    // console.log(ability);
-  };
+  window.scrollTo({
+    top: 0,
+    left:100,
+    behavior: "smooth"
+  })
+}
+ 
   const handleTabsChange = (e) => {
     let tabs = "";
     switch (e) {
@@ -66,9 +67,7 @@ const SinglePokemon = () => {
     } while (data);
   };
   const params = useParams();
-  const RatioToPercent = (ratio) => {
-    return ((100 / (ratio + 1)) * ratio).toFixed(0);
-  };
+  
   useEffect(() => {
     let data1 = {};
     let data2 = {};
@@ -87,7 +86,8 @@ const SinglePokemon = () => {
     <>
       {!loading ? (
         <div
-          className="card-singlePokemon  "
+          className="card-singlePokemon scroll-smooth  "
+          id="singlePokemon"
           style={{
             backgroundColor: colorType[pokemon?.types[0]?.type?.name],
             color: "black",
@@ -173,6 +173,7 @@ const SinglePokemon = () => {
             </div>
             <hr className="bg-slate-400 mx-auto my-5 w-11/12 h-[2px] text-slate-600" />
             <div className="carac-general flex flex-col w-full  rounded-lg ">
+
               <div
                 className="about text-center"
                 style={
@@ -182,174 +183,7 @@ const SinglePokemon = () => {
                 }
                 onClick={() => handleTabsChange("About")}
               >
-                <p>
-                  {pokemon.species
-                    ? pokemon.flavor_text_entries[15].flavor_text
-                    : ""}
-                </p>
-                <div
-                  className={`morphology w-7/12 m-auto my-10 flex 
-                   flex-row justify-center gap-20 shadow-lg shadow-slate-600 rounded`}
-                  style={{
-                    backgroundColor: colorType[pokemon?.types[0]?.type?.name],
-                  }}
-                >
-                  <div className="weight my-auto">
-                    <p className="text-white my-2 font-bold">Weight</p>
-                    <hr />
-                    <p className="text-white font-light">{pokemon.weight}</p>
-                  </div>
-                  <div className="height">
-                    <p className="text-white my-2 font-bold ">Height</p>
-                    <hr className="" />
-                    <p className="text-white font-light">{pokemon.height}</p>
-                  </div>
-                </div>
-                <div
-                  className={`general w-[80%] relative py-3 m-auto shadow-lg text-white shadow-slate-600 rounded`}
-                  style={{
-                    background: colorType[pokemon?.types[0]?.type?.name],
-                  }}
-                >
-                  <div className="details-abilities absolute w-0  h-full top-0 rounded transition-opacity_2s]  opacity-0 left-0  duration-500 border border-solid border-red-900 items-center  z-10 bg-gray-600 flex-col gap-5 ">
-                    <div className="w-full  flex justify-end">
-                      <button
-                        onClick={() => {
-                          document.getElementsByClassName(
-                            "details-abilities"
-                          )[0].style.width = "0%";
-                          document.getElementsByClassName(
-                            "details-abilities"
-                          )[0].style.opacity = 0;
-                          waitForElementTransition(
-                            document.getElementsByClassName(
-                              "details-abilities"
-                            )[0]
-                          ).then(() => {
-                            setability(false);
-                          });
-                        }}
-                        className="bg-gray-800 gap-7 w-10 h-5 rounded-bl "
-                      >
-                        {" "}
-                        {
-                          <FontAwesomeIcon
-                            icon={faX}
-                            className=" text-blue-400"
-                          />
-                        }
-                      </button>
-                    </div>
-                    {ability ? (
-                      <>
-                        <h3 className={` underline mb-5`}>{ability?.name}</h3>
-                        <p>
-                          {Object.keys(ability?.effect_entries).map(
-                            (key, index) => {
-                              if (
-                                ability?.effect_entries[key].language.name ===
-                                "en"
-                              ) {
-                                return (
-                                  <>{ability?.effect_entries[key].effect}</>
-                                );
-                              }
-                            }
-                          )}
-                        </p>
-                      </>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-
-                  <div className="breading  ml-5  flex flex-col items-start">
-                    <h3 className="text-slate-900 w-full font-black">
-                      Breading
-                    </h3>
-                    <div className="Gender flex flex-row gap-4 w-full pl-[20%] justify-start">
-                      <h4 className="text-start text-slate-500 w-2/6 ">
-                        Gender:
-                      </h4>
-                      <p>
-                        {" "}
-                        <FontAwesomeIcon
-                          icon={faMars}
-                          className="text-blue-200"
-                        />{" "}
-                        {100 - RatioToPercent(pokemon.gender_rate)}
-                      </p>
-                      <p className="female flex flex-row gap-4 ">
-                        <FontAwesomeIcon
-                          icon={faVenus}
-                          className=" text-pink-400"
-                        />{" "}
-                        {RatioToPercent(pokemon.gender_rate)}
-                      </p>
-                    </div>
-                    <div className="eggGroup flex flex-row gap-4 justify-start pl-[20%] w-full ">
-                      <h4 className="text-start text-slate-500 w-2/6 ">
-                        Egg group:
-                      </h4>
-                      <div className="eggType">
-                        {" "}
-                        {pokemon.egg_groups[0].name}{" "}
-                      </div>
-                    </div>
-                    <div className="eggCycle flex flex-row mx-2/6 w-full justify-start pl-[20%]  gap-4">
-                      <h4 className="text-start text-slate-500 w-2/6 ">
-                        egg cycle
-                      </h4>
-                      <div className="eggCycle">
-                        {pokemon.types[0].type.name}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/*  */}
-                  <div className="abilities ml-5 flex-col">
-                    <h2 className="text-slate-900 w-full font-black">
-                      {" "}
-                      Talents
-                    </h2>
-
-                    <div className="talents flex flex-row justify-evenly">
-                      {pokemon.abilities?.map((ability) => {
-                        return (
-                          <>
-                            {" "}
-                            <div
-                              className={`ability-${ability.ability.name} flex gap-2 flex-row`}
-                            >
-                              {" "}
-                              <p key={ability.ability.name}>
-                                {ability.ability.name}
-                              </p>
-                              <FontAwesomeIcon
-                                icon={faQuestionCircle}
-                                className=" text-blue-400"
-                                onClick={async () => {
-                                  await fetchAbility(ability.ability.url)
-                                    .then(
-                                      (document.getElementsByClassName(
-                                        "details-abilities"
-                                      )[0].style.width = "100%")
-                                    )
-                                    .then(
-                                      (document.getElementsByClassName(
-                                        "details-abilities"
-                                      )[0].style.opacity = 1)
-                                    );
-                                }}
-                              />
-                            </div>
-                          </>
-                        );
-                      })}
-                    </div>
-                  </div>
-                  {/*  */}
-                </div>
+                            <About pokemon={pokemon} />
               </div>
               <div
                 className="BaseStats w-full flex flex-col pt-[20px]"
@@ -431,76 +265,26 @@ const SinglePokemon = () => {
                 </div>
               </div>
             </div>
-{/* 
-table.blueTable {
-  border: 1px solid #1C6EA4;
-  width: 100%;
-  height: 200%;
-  text-align: left;
-  border-collapse: collapse;
-}
-table.blueTable td, table.blueTable th {
-  border: 0px solid #AAAAAA;
-  padding: 3px 2px;
-}
-table.blueTable tbody td {
-  font-size: 15px;
-  color: #331B03;
-}
-table.blueTable tr:nth-child(even) {
-  background: #D0E4F5;
-}
-table.blueTable thead {
-  background: #1C6EA4;
-  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  border-bottom: 2px solid #444444;
-}
-table.blueTable thead th {
-  font-size: 15px;
-  font-weight: bold;
-  color: #FFFFFF;
-  border-left: 2px solid #D0E4F5;
-}
-table.blueTable thead th:first-child {
-  border-left: none;
-}
-
-table.blueTable tfoot td {
-  font-size: 14px;
-}
-table.blueTable tfoot .links {
-  text-align: right;
-}
-table.blueTable tfoot .links a{
-  display: inline-block;
-  background: #1C6EA4;
-  color: #FFFFFF;
-  padding: 2px 8px;
-  border-radius: 5px;
-}
-
- */}
-            <div className="moves ">
+                  
+            <div className="moves  " style={{display: tabActive === "Moves" ? "inline" : "none"}}>
               <table className="border border-solid border-[#1cea] w-full h-[200%] text-left ">
-                <thead className=" border-b-slate-900 border-b-2 border-solid bg-[#1c6ea4] ">
-                  <tr className="gap-5 text-center">
+                <thead className=" border-b-slate-900 border-b-[2px] border-solid " style={{background: colorType[pokemon?.types[0]?.type?.name]}}>
+                  <tr className="gap-5 text-center ">
                     <th className=" text-[15px] px-5 font-semibold text-[#ffff] min-w-[40px] ">names</th>
-                    <th className=" text-[15px]px-5  font-semibold text-[#ffff] min-w-[40px] border-l-2 border-l-slate-400 border-solid">Type</th>
+                    <th className=" text-[15px] px-5  font-semibold text-[#ffff] min-w-[40px] border-l-2 border-l-slate-400 border-solid">Type</th>
                     <th className=" text-[15px] px-5  font-semibold text-[#ffff] min-w-[40px]  border-l-2 border-l-slate-400 border-solid">cat</th>
-                    <th className=" text-[15px]px-5  font-semibold text-[#ffff] min-w-[80px] border-l-2 border-l-slate-400 border-solid">power</th>
-                    <th className=" text-[15px]px-5  font-semibold text-[#ffff] first-letter:min-w-[40px]  border-l-2 border-l-slate-400 border-solid">accuracy</th>
-                    <th className=" text-[15px]px-5  font-semibold text-[#ffff] min-w-[60px]  border-l-2 border-l-slate-400 border-solid">pp</th>
+                    <th className=" text-[15px] px-5  font-semibold text-[#ffff] min-w-[80px] border-l-2 border-l-slate-400 border-solid">power</th>
+                    <th className=" text-[15px] px-5  font-semibold text-[#ffff] first-letter:min-w-[40px]  border-l-2 border-l-slate-400 border-solid">accuracy</th>
+                    <th className=" text-[15px] px-5  font-semibold text-[#ffff] min-w-[60px]  border-l-2 border-l-slate-400 border-solid">pp</th>
                     <th className=" text-[15px] px-5 font-semibold text-[#ffff] min-w-[40px] border-l-2 border-l-slate-400 border-solid">effect</th>
                   </tr>
                 </thead>
                 <tbody className="text-[15px] text-[#331b03] ">
-                  {pokemon.moves?.map((move) => {
+                  {pokemon.moves?.map((move,i) => {
                     return (
                       <>
-                        <tr className=" even:bg-[#d0e4f5]">
-                          <Moves moveUrl={move.move.url} />
+                        <tr className=" even:bg-[#d0e4f5] ">
+                          <Moves moveUrl={move.move.url} index={i} color={colorType[pokemon?.types[0]?.type?.name]} />
                         </tr>
                       </>
                     );
@@ -510,6 +294,9 @@ table.blueTable tfoot .links a{
             </div>
 
           </div>
+          <button className="fixed right-4 bottom-4 w-[50px] h-[50px] bg-black" onClick={()=> topFunction()} >
+                  <FontAwesomeIcon icon={faArrowUp} className="text-white w-full h-full" />
+          </button>
         </div>
       ) : (
         <div className="w-screen h-screen text-center bg-white text-white flex justify-center items-center ">
