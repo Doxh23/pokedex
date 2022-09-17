@@ -28,7 +28,7 @@ const Moves = (prop) => {
   return (
     <>
     
-    <td className={`py-[3px] px-[2px] font-black text-[10px]  `} style={{background: bgcolor,color: textColor}}>{move?.name.toUpperCase()}</td>
+    <td className={`py-[3px] px-[2px] font-black text-[10px]  `} style={{background: bgcolor,color: textColor}}>{move?.name?.toUpperCase()}</td>
     <td className='  font-semibold  ' style={{background: bgcolor,color: textColor}} >{move?.type?.name}</td>
     <td className='font-semibold  ' style={{background: bgcolor,color: textColor}}><img src={`${ categoryMove[move?.damage_class?.name]}`} alt={``} /></td>
     <td className='font-semibold  ' style={{background: bgcolor,color: textColor}}>{move?.power}</td>
