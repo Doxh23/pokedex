@@ -17,7 +17,8 @@ const Pokemon = (props) => {
     <Link className="pokemon-card  pokeballCursor" style={{backgroundColor: "transparent"}} to={`/SinglePokemon/${takePokemonId(pokemon.url)}`} key={takePokemonId(pokemon.url)}>
     <div className=' rounded my-4 bg-purple-900 hover:bg-purple-500 pokemon-card' key={takePokemonId(pokemon.url)}>
     
-                <h2 className='text-white font-semibold text-xl text-center'>{pokemon.name.toUpperCase()}</h2>
+                <h2 className='text-white font-semibold text-xl text-center'>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+</h2>
                 <img className='m-auto'
                   src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${takePokemonId(
                     pokemon.url

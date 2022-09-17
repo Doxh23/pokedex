@@ -95,7 +95,7 @@ const  topFunction =() => {
           }}
         >
           <h1 className="name text-center text-white pt-5 text-6xl font-semibold">
-            {pokemon.name}
+            {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
           </h1>
           <div className="sprite w-1/5 flex m-auto">
             <img
