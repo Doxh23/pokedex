@@ -29,12 +29,12 @@ const Moves = (prop) => {
     <>
     
     <td className={`py-[3px] px-[2px] font-black text-[10px]  `} style={{background: bgcolor,color: textColor}}>{move?.name}</td>
-    <td className='  font-semibold text-[7px] ' style={{background: bgcolor,color: textColor}} >{move?.type?.name}</td>
-    <td className='font-semibold text-[7px] ' style={{background: bgcolor,color: textColor}}><img src={`${ categoryMove[move?.damage_class?.name]}`} alt={``} /></td>
-    <td className='font-semibold text-[7px] ' style={{background: bgcolor,color: textColor}}>{move?.power}</td>
-    <td className='font-semibold text-[7px] ' style={{background: bgcolor,color: textColor}}> {move?.accuracy}</td>
-    <td className='font-semibold text-[7px] ' style={{background: bgcolor,color: textColor}}> {move?.pp}</td>
-    <td className='font-semibold text-[7px] text-left ' style={{background: bgcolor,color: textColor}}> {move && move?.effect_entries[0]?.effect}</td>
+    <td className='  font-semibold  ' style={{background: bgcolor,color: textColor}} >{move?.type?.name}</td>
+    <td className='font-semibold  ' style={{background: bgcolor,color: textColor}}><img src={`${ categoryMove[move?.damage_class?.name]}`} alt={``} /></td>
+    <td className='font-semibold  ' style={{background: bgcolor,color: textColor}}>{move?.power}</td>
+    <td className='font-semibold  ' style={{background: bgcolor,color: textColor}}> {move?.accuracy}</td>
+    <td className='font-semibold ' style={{background: bgcolor,color: textColor}}> {move?.pp}</td>
+    <td className='font-semibold  text-left ' style={{background: bgcolor,color: textColor}}> {move && move?.effect_entries[0]?.effect}</td>
        </> 
 
   )

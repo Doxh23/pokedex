@@ -28,7 +28,8 @@ const  topFunction =() => {
     behavior: "smooth"
   })
 }
- 
+
+
   const handleTabsChange = (e) => {
     let tabs = "";
     switch (e) {
@@ -283,7 +284,7 @@ const  topFunction =() => {
                   {pokemon.moves?.map((move,i) => {
                     return (
                       <>
-                        <tr className=" even:bg-[#d0e4f5] ">
+                        <tr className=" even:bg-[#d0e4f5] text-[7px] md:text-[15px]">
                           <Moves moveUrl={move.move.url} index={i} color={colorType[pokemon?.types[0]?.type?.name]} />
                         </tr>
                       </>
@@ -294,8 +295,8 @@ const  topFunction =() => {
             </div>
 
           </div>
-          <button className="fixed right-4 bottom-4 w-[50px] h-[50px] bg-black" onClick={()=> topFunction()} >
-                  <FontAwesomeIcon icon={faArrowUp} className="text-white w-full h-full" />
+          <button className="arrowUp fixed rounded-[50%] right-5 bottom-12 w-[50px] h-[50px] bg-black" style={{background: colorType[pokemon?.types[0]?.type?.name]}} onClick={()=> topFunction()} >
+                  <FontAwesomeIcon icon={faArrowUp} className="text-white w-[65%] h-[65%]"  />
           </button>
         </div>
       ) : (
