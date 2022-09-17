@@ -270,7 +270,7 @@ const  topFunction =() => {
               <table className="border border-solid border-[#1cea] w-full h-[200%] text-left ">
                 <thead className=" border-b-slate-900 border-b-[2px] border-solid " style={{background: colorType[pokemon?.types[0]?.type?.name]}}>
                   <tr className="gap-5 text-center text-[1px] ">
-                      <th className=" font-semibold text-[#ffff]  text-[10px] ">names</th>
+                      <th className=" font-semibold text-[#ffff] px-10 text-[10px] ">names</th>
                     <th className=" text-[10px]  px-1  font-semibold text-[#ffff]  border-l-2 border-l-slate-400 border-solid">Type</th>
                     <th className=" text-[10px]  px-1  font-semibold text-[#ffff]  border-l-2 border-l-slate-400 border-solid">cat</th>
                     <th className=" text-[10px]  px-1  font-semibold text-[#ffff]  border-l-2 border-l-slate-400 border-solid">power</th>
@@ -279,7 +279,7 @@ const  topFunction =() => {
                     <th className=" text-[10px]  px-1  font-semibold text-[#ffff]  border-l-2 border-l-slate-400 border-solid">effect</th>
                   </tr>
                 </thead>
-                <tbody className="text-[15px] text-[#331b03] ">
+                <tbody className="text-[15px] text-[#331b03] text-center ">
                   {pokemon.moves?.map((move,i) => {
                     return (
                       <>
