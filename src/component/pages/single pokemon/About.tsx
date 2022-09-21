@@ -1,22 +1,26 @@
-import React from 'react'
+import React, { HtmlHTMLAttributes, StyleHTMLAttributes } from 'react'
 import  { useState,useEffect } from 'react'
 import { api,categoryMove,colorType } from '../../utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft,faArrowRight,faX,faMars,faVenus,faQuestionCircle, } from '@fortawesome/free-solid-svg-icons'
 import waitForElementTransition from "wait-for-element-transition";
 
-const About = (prop) => {
+const About = (prop:any) => {
     const {pokemon} = prop
-    const [ability, setability] = useState("");
+    const [ability, setability] = useState<any>();
 
-    const fetchAbility = async (url) => {
+    const fetchAbility = async (url:string) => {
         const res = await api(url);
         setability(res);
         // console.log(ability);
       };
-      const RatioToPercent = (ratio) => {
-        return ((100 / (ratio + 1)) * ratio).toFixed(0);
+      const RatioToPercent = (ratio:number):number => {
+        let percent:number = +((100 / (ratio + 1)) * ratio).toFixed(0)
+        return percent ;
       };
+      let details = document.querySelector(
+        ".details-abilities"
+      ) as HTMLElement;
   return (
     <>
        <p>
@@ -52,18 +56,12 @@ const About = (prop) => {
                     <div className="w-full  flex justify-end">
                       <button
                         onClick={() => {
-                          document.getElementsByClassName(
-                            "details-abilities"
-                          )[0].style.width = "0%";
-                          document.getElementsByClassName(
-                            "details-abilities"
-                          )[0].style.opacity = 0;
+                          details.setAttribute("style", "width:0;opacity:0");
+                   
                           waitForElementTransition(
-                            document.getElementsByClassName(
-                              "details-abilities"
-                            )[0]
+                            details
                           ).then(() => {
-                            setability(false);
+                            setability(null);
                           });
                         }}
                         className="bg-gray-800 gap-7 w-10 h-5 rounded-bl "
@@ -165,18 +163,9 @@ const About = (prop) => {
                               <FontAwesomeIcon
                                 icon={faQuestionCircle}
                                 className=" text-blue-400"
-                                onClick={async () => {
-                                  await fetchAbility(ability.ability.url)
-                                    .then(
-                                      (document.getElementsByClassName(
-                                        "details-abilities"
-                                      )[0].style.width = "100%")
-                                    )
-                                    .then(
-                                      (document.getElementsByClassName(
-                                        "details-abilities"
-                                      )[0].style.opacity = 1)
-                                    );
+                                onClick={async ():Promise<any> => {
+                                  await fetchAbility(ability.ability.url);
+                                      details.setAttribute('style','width:100%;opacity:1');  
                                 }}
                               />
                             </div>

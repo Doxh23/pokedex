@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { colorType, api } from "../../utils";
+import { chain, Move, Pokemon, PokemonEvolutionChain, PokemonSpecies } from "./type";
 import About from "./About";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,14 +13,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Moves from "./Moves";
+import { evolution } from "./type";
+import { workerData } from "worker_threads";
 const SinglePokemon = () => {
-  const [pokemon, setpokemon] = useState({});
-  const [loading, setloading] = useState(true);
-  const [tabActive, settabActive] = useState("About");
-  const [evolution, setEvolution] = useState({});
-  const [PokemonColor, setPokemonColor] = useState("");
-  const [test, settest] = useState(true);
-  const { id } = useParams();
+  const [pokemon, setpokemon] = useState<PokemonEvolutionChain>();
+  const [loading, setloading] = useState<boolean>(true);
+  const [tabActive, settabActive] = useState<string|null>("About");
+  const [evolution, setEvolution] = useState<object>({});
+  const [test, settest] = useState<boolean>(true);
+  const { id } = useParams<string>();
+ 
+
+
 const  topFunction =() => {
 
   window.scrollTo({
@@ -30,8 +35,8 @@ const  topFunction =() => {
 }
 
 
-  const handleTabsChange = (e) => {
-    let tabs = "";
+  const handleTabsChange = (e:string) => {
+    let tabs:string|null = "";
     switch (e) {
       case "About":
         tabs = "About";
@@ -52,31 +57,38 @@ const  topFunction =() => {
 
     settabActive(tabs);
   };
-  const handleFetchEvolution = async (data) => {
-    let workingData = {};
+  const handleFetchEvolution = async (data:PokemonEvolutionChain) => {
     if (!data?.chain) {
       return;
     }
-    data = data.chain;
+   let dataChain:chain = data.chain;
+   let workingData:chain = dataChain;
+
     do {
-      workingData = await api(data.species.url);
-      workingData.evolution_details = data.evolution_details;
+      if(dataChain.species){
+        workingData = await api(dataChain.species.url);
+      }
+      workingData.evolution_details = dataChain.evolution_details;
       setEvolution((prev) => {
-        return { ...prev, [workingData.name]: workingData };
+        return { ...prev, [workingData.name? workingData.name : '']: workingData };
       });
-      data = data.evolves_to[0];
+      dataChain = data.evolves_to? data.evolves_to[0] : null;
     } while (data);
   };
   const params = useParams();
   
   useEffect(() => {
-    let data1 = {};
-    let data2 = {};
-    let data3 = {};
+    var data1:Pokemon
+    var data2:PokemonSpecies;
+    var data3:PokemonEvolutionChain
     const fetchData = async () => {
       data1 = await api(`https://pokeapi.co/api/v2/pokemon/${params.id}`);
-      data2 = await api(data1.species.url);
+     console.log(data1)
+     
+       data2 = await api(data1.species.url);
+      console.log(data2)
       data3 = await api(data2.evolution_chain.url);
+      console.log(data3)
       setpokemon({ ...data1, ...data2, ...data3 });
       setloading(false);
     };
@@ -201,7 +213,7 @@ const  topFunction =() => {
                   className="stats flex flex-row justify-around w-[90%] rounded  m-auto "
                 >
                   <div className="stat flex flex-row items-center gap-3 text-center h-[300px] rounded-t   w-full">
-                    {pokemon.stats?.map((stat) => {
+                    {pokemon.stats?.map((stat:any) => {
                       return (
                         <div
                           className={` ${stat.stat.name} flex flex-col justify-start gap-2 w-[16%] p-[5px] h-full max-w-[15%]`}
@@ -281,7 +293,7 @@ const  topFunction =() => {
                   </tr>
                 </thead>
                 <tbody className="text-[15px] text-[#331b03] text-center ">
-                  {pokemon.moves?.map((move,i) => {
+                  {pokemon.moves?.map((move:Move,i:number) => {
                     return (
                       <>
                         <tr className=" even:bg-[#d0e4f5] text-[7px] md:text-[15px]">

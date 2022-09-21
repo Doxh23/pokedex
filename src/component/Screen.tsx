@@ -10,7 +10,7 @@ import Moves from './pages/Moves/Moves'
 import Berries from './pages/berries/Berries'
 import Error from './pages/Error/Error'
 
-const Component = (props) => {
+const Component = (props:any) => {
     let   {PokemonData,loading,category,setPokemonData,offSet,setOffSet} = props
   return (
     <>

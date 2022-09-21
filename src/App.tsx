@@ -1,30 +1,49 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import axios from "axios";
 import "./style/style.css";
 import { api } from "./component/utils";
 import Component from "./component/Screen";
 import Category from "./component/pages/Home/Category";
 import { useLocation } from "react-router-dom";
 import NavBar from "./component/layout/NavBar";
+import Pokemon from "./component/pages/Home/Pokemon";
 
-function App() {
-  const [Search, setSearch] = useState("");
-  const [PokemonData, setPokemonData] = useState([]);
-  const [offSet, setOffSet] = useState(0);
-  const [category, setcategory] = useState("");
+function App<JsxElement>() {
+  const [PokemonData, setPokemonData] = useState<PokemonData|object>({});
+  const [offSet, setOffSet] = useState<number>(0);
+  const [category, setcategory] = useState<category|object>();
   const [loading, setloading] = useState(true);
   const location = useLocation();
+interface PokemonData{
+  count: number;
+  next: string;
+  previous: string;
+  results: {
+    name: string;
+    url: string;
+  }[];
+}
+interface category{
+  count: number;
+  next: string;
+  previous: string;
+  results: {
+    name: string;
+    url: string;
+  }[];
+}
+ 
+
+
 
   useEffect(() => {
-    let data = {};
-    const fetchDataPokemon = async () => {
-      data = await api(
-        `https://pokeapi.co/api/v2/pokemon/?offset=${offSet}&limit=20`
-      );
-
+    let data:PokemonData
+    const fetchDataPokemon = async ():Promise<void> => {
+      data = await axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=${offSet}&limit=20`).then(res => res.data);
       setPokemonData(data);
     };
-    const fetchDataCategory = async () => {
+    const fetchDataCategory = async ():Promise<void> => {
       data = await api(`https://pokeapi.co/api/v2/type/`);
       setcategory(data.results);
     };
@@ -33,7 +52,7 @@ function App() {
     fetchDataCategory();
     setloading(false);
   }, [offSet]);
-
+  console.log(PokemonData)
   return (
     <div className="App w-[100%]  inline-block h-auto  scroll-smooth">
             {!loading ? (

@@ -1,17 +1,24 @@
 import React from 'react'
 import { useState,useEffect } from 'react'
-import { api,categoryMove } from '../../utils'
+import { categoryMove } from '../../utils'
+import { Move } from './type'
+import axios from 'axios'
 
-const Moves = (prop) => {
+const Moves = (prop:any) => {
 
     const {moveUrl,color ,index} = prop
     const [loading, setloading] = useState(true)
-    const [move, setMove] = useState("")
+    const [move, setMove] = useState<Move>()
     let bgcolor = ""
     let textColor = ""
     useEffect(() => {
-        api(moveUrl).then(res => setMove(res))
+        const fetchMove = async (url:string) => {
+       let data = await axios.get(url).then(res => res.data);
+       setMove(data)
+
         setloading(false)
+        }
+        fetchMove(moveUrl)
     }, [])
     
     if(index === 0 || index % 2 === 0){

@@ -5,20 +5,20 @@ import {
   faMapLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link,useLocation } from "react-router-dom";
+import { Link,Location,useLocation } from "react-router-dom";
 
 const NavBar = () => {
   const [isNavOpen, setisNavOpen] = useState(false);
-  const [handleScroll, sethandleScroll] = useState(true);
-  const [widthScreen, setwidthScreen] = useState(window.screen.width);
-  const location = useLocation();
+  const [handleScroll, sethandleScroll] = useState<boolean>(true);
+  const [widthScreen, setwidthScreen] = useState<number>(window.screen.width);
+  const location:Location = useLocation();
 
   useEffect(() => {
     setisNavOpen(false);
   }, [location]);
 
-  var oldScrollY = window.scrollY;
-  window.onscroll = function (e) {
+  var oldScrollY:number = window.scrollY;
+  window.onscroll = function (e:any) {
     if (window.scrollY < oldScrollY) {
       sethandleScroll(true);
       console.log("up");
@@ -144,16 +144,16 @@ const NavBar = () => {
             style={
               isNavOpen
                 ? {
-                    transform: "rotate(45deg)",
-                    position: "absolute",
-                    bottom: 0,
-                  }
-                : null
-            }
+                  transform: "rotate(45deg)",
+                  position: "absolute",
+                  bottom: 0,
+                }
+                : {}
+            } 
           ></span>
           <span
             className="block my-2 w-8 h-1 bg-gray-600 transition-[transform]"
-            style={isNavOpen ? { display: "none" } : null}
+            style={isNavOpen ? { display: "none" } : {display: "block"}}
           ></span>
           <span
             className="block my-2 w-8 h-1 bg-gray-600 transition-[transform,position] duration-700 delay-500"
@@ -164,7 +164,7 @@ const NavBar = () => {
                     position: "absolute",
                     bottom: 0,
                   }
-                : null
+                : {}
             }
           ></span>
         </div>

@@ -1,18 +1,26 @@
 import React from "react";
 import { api, colorType } from "../../utils";
 import { useLocation } from "react-router-dom";
+import { category } from "./type";
 const Category = (props) => {
   let location = useLocation();
 
   console.log(colorType["grass"]);
-  const filterTypePokemon = (type) => {
+  interface data {
+    results?: any;
+    pokemon?: Array<any>;
+  }
+  interface pokemon {
+    pokemon?: any;
+  }
+  const filterTypePokemon = (type:any) => {
     //filter pokemon by type
-    let data = {};
+    let data:data
     console.log(type.name);
-    const fetchData = async () => {
+    const fetchData = async ():Promise<any> => {
       data = await api(`https://pokeapi.co/api/v2/type/${type.name}`);
       let dataWorking = {
-        results: data.pokemon.map((pokemon) => {
+        results:  data.pokemon.map((pokemon:(pokemon)) => {
           return {
             name: pokemon.pokemon.name,
             url: pokemon.pokemon.url,
@@ -31,7 +39,7 @@ const Category = (props) => {
           <hr className="w-4/5 m-auto mb-2" />
           <div className="category text-center m-auto w-4/5">
             {category &&
-              category.map((category) => {
+              category.map((category:category) => {
                 if(category.name !== "unknown" && category.name !== "shadow"){
                 return (
                   <button

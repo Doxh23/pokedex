@@ -1,8 +1,9 @@
 
 import axios from 'axios';
+import { Move, Pokemon } from './pages/single pokemon/type';
 
- const api =async (url) => {
-  const data = await axios.get(url).then(res => res.data);
+  const api =async (url:string) => {
+  const data:any = await axios.get(url).then(res => res.data);
  return data
     
 }

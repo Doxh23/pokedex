@@ -1,5 +1,5 @@
 import React from "react";
-import Pokemon from "../Home/Pokemon";
+import Pokemon from "./Pokemon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightLong, faLeftLong } from "@fortawesome/free-solid-svg-icons";
 const PokemonList = (props) => {
@@ -9,7 +9,7 @@ const PokemonList = (props) => {
     return id;
   };
   console.log(PokemonData);
-  const handleOffSet = (e) => { 
+  const handleOffSet = (e:string) => { 
    
     switch (e) {
       case "next":
@@ -32,7 +32,7 @@ const PokemonList = (props) => {
       <div className="">
         {PokemonData.results &&
           !loading &&
-          PokemonData.results.map((pokemon) => {
+          PokemonData.results.map((pokemon:any) => {
             return (
               <Pokemon
                 key={takePokemonId(pokemon.url)}
