@@ -1,15 +1,23 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { colorType, api } from "../../utils";
-import { chain, Move, Pokemon, PokemonEvolutionChain, PokemonSpecies } from "./type";
+import {
+  chain,
+  Move,
+  Pokemon,
+  PokemonEvolutionChain,
+  PokemonSpecies,
+} from "./type";
 import About from "./About";
+import BaseStats from "./BaseStats";
+import Evolution from "./Evolution";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMars,
   faVenus,
   faQuestionCircle,
   faX,
-  faArrowUp
+  faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Moves from "./Moves";
@@ -18,24 +26,21 @@ import { workerData } from "worker_threads";
 const SinglePokemon = () => {
   const [pokemon, setpokemon] = useState<PokemonEvolutionChain>();
   const [loading, setloading] = useState<boolean>(true);
-  const [tabActive, settabActive] = useState<string|null>("About");
+  const [tabActive, settabActive] = useState<string | null>("About");
   const [evolution, setEvolution] = useState<object>({});
   const [test, settest] = useState<boolean>(true);
   const { id } = useParams<string>();
- 
 
+  const topFunction = () => {
+    window.scrollTo({
+      top: 0,
+      left: 100,
+      behavior: "smooth",
+    });
+  };
 
-const  topFunction =() => {
-
-  window.scrollTo({
-    top: 0,
-    left:100,
-    behavior: "smooth"
-  })
-}
-
-  const handleTabsChange = (e:string) => {
-    let tabs:string|null = "";
+  const handleTabsChange = (e: string) => {
+    let tabs: string | null = "";
     switch (e) {
       case "About":
         tabs = "About";
@@ -56,44 +61,43 @@ const  topFunction =() => {
 
     settabActive(tabs);
   };
-  const handleFetchEvolution = async (data:PokemonEvolutionChain) => {
+  const handleFetchEvolution = async (data: PokemonEvolutionChain) => {
     if (!data?.chain) {
       return;
     }
-    let dataChain:chain = data.chain;
-   let workingData:chain = dataChain;
-   console.log(workingData)
-   console.log('-----------------------------------------------------')
+    let dataChain: chain = data.chain;
+    let workingData: chain = dataChain;
     do {
-      console.log(dataChain)
-      if(dataChain.species){
+      console.log(dataChain);
+      if (dataChain.species) {
         workingData = await api(dataChain.species.url);
       }
       workingData.evolution_details = dataChain.evolution_details;
       setEvolution((prev) => {
-        return { ...prev, [workingData.name? workingData.name : '']: workingData };
+        return {
+          ...prev,
+          [workingData.name ? workingData.name : ""]: workingData,
+        };
       });
-      dataChain = dataChain.evolves_to? dataChain.evolves_to[0] : null;
-      console.log(dataChain)
+      dataChain = dataChain.evolves_to ? dataChain.evolves_to[0] : null;
+      console.log(dataChain);
     } while (dataChain);
   };
   const params = useParams();
-  
+
   useEffect(() => {
-    var data1:Pokemon
-    var data2:PokemonSpecies;
-    var data3:PokemonEvolutionChain
+    var data1: Pokemon;
+    var data2: PokemonSpecies;
+    var data3: PokemonEvolutionChain;
     const fetchData = async () => {
       data1 = await api(`https://pokeapi.co/api/v2/pokemon/${params.id}`);
-     
-       data2 = await api(data1.species.url);
+      data2 = await api(data1.species.url);
       data3 = await api(data2.evolution_chain.url);
       setpokemon({ ...data1, ...data2, ...data3 });
       setloading(false);
     };
     fetchData();
   }, [id]);
-  //   console.log(pokemon);
   return (
     <>
       {!loading ? (
@@ -185,7 +189,6 @@ const  topFunction =() => {
             </div>
             <hr className="bg-slate-400 mx-auto my-5 w-11/12 h-[2px] text-slate-600" />
             <div className="carac-general flex flex-col w-full  rounded-lg ">
-
               <div
                 className="about text-center"
                 style={
@@ -195,7 +198,7 @@ const  topFunction =() => {
                 }
                 onClick={() => handleTabsChange("About")}
               >
-                            <About pokemon={pokemon} />
+                <About pokemon={pokemon} />
               </div>
               <div
                 className="BaseStats w-full flex flex-col pt-[20px]"
@@ -205,35 +208,7 @@ const  topFunction =() => {
                     : { display: "none" }
                 }
               >
-                <div
-                  style={{
-                    backgroundColor: colorType[pokemon?.types[0]?.type?.name],
-                  }}
-                  className="stats flex flex-row justify-around w-[90%] rounded  m-auto "
-                >
-                  <div className="stat flex flex-row items-center gap-3 text-center h-[300px] rounded-t   w-full">
-                    {pokemon.stats?.map((stat:any) => {
-                      return (
-                        <div key={stat.stat.name}
-                          className={` ${stat.stat.name}  flex flex-col justify-start gap-2 w-[16%] p-[5px] h-full max-w-[15%]`}
-                        >
-                          <div className="bar h-[230px]  content-between rounded-b-md rotate-180 shadow">
-                            <div
-                              className="barProgress rounded-b-md bg-white"
-                              style={{
-                                height: `${(stat.base_stat / 250) * 100}%`,
-                              }}
-                            ></div>
-                          </div>
-                          <div className="information text-white font-[600]">
-                            <div className="stat">{stat.base_stat}</div>
-                            <div className="name">{stat.stat.name}</div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
+                <BaseStats pokemon={pokemon} />
               </div>
               <div
                 className="evolutions"
@@ -244,60 +219,60 @@ const  topFunction =() => {
                 }
               >
                 <div className="evolution flex flex-row gap-10 w-full justify-evenly">
-                  {Object.keys(evolution).map((key, index) => {
-                    return (
-                      <Link
-                      key={index}
-                        className="evolution flex flex-col items-center gap-5"
-                        onClick={() => handleTabsChange("About")}
-                        to={`/SinglePokemon/${evolution[key].id}`}
-                      >
-                        <div className="evolutionName text-center">
-                          {evolution[key].name}
-                        </div>
-                        <div className="evolutionImage">
-                          <img
-                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evolution[key].id}.png`}
-                          />
-                        </div>
-                        <div className="evolutionType">
-                          {evolution[key].evolution_details[0]?.trigger?.name}
-                        </div>
-                        <div className="evolutionLevel">
-                          {evolution[key].evolution_details[0]?.min_level
-                            ? evolution[key].evolution_details[0]?.min_level +
-                              " Min Level"
-                            : evolution[key].evolution_details[0]?.min_happiness
-                            ? evolution[key].evolution_details[0]
-                                ?.min_happiness + " minimum Happiness"
-                            : ""}
-                        </div>
-                      </Link>
-                    );
-                  })}
+                    <Evolution handleTabsChange={handleTabsChange} evolution={evolution} />
                 </div>
               </div>
             </div>
-                  
-            <div className="moves  " style={{display: tabActive === "Moves" ? "inline" : "none"}}>
+
+            <div
+              className="moves  "
+              style={{ display: tabActive === "Moves" ? "inline" : "none" }}
+            >
               <table className="border border-solid border-[#1cea] w-full h-[200%] text-left ">
-                <thead className=" border-b-slate-900 border-b-[2px] border-solid " style={{background: colorType[pokemon?.types[0]?.type?.name]}}>
+                <thead
+                  className=" border-b-slate-900 border-b-[2px] border-solid "
+                  style={{
+                    background: colorType[pokemon?.types[0]?.type?.name],
+                  }}
+                >
                   <tr className="gap-5 text-center text-[1px] ">
-                      <th className=" font-semibold text-[#ffff] px-8 text-[10px] ">names</th>
-                    <th className=" text-[10px]  px-1  font-semibold text-[#ffff]  border-l-2 border-l-slate-400 border-solid">Type</th>
-                    <th className=" text-[10px]  px-1  font-semibold text-[#ffff]  border-l-2 border-l-slate-400 border-solid">cat</th>
-                    <th className=" text-[10px]  px-1  font-semibold text-[#ffff]  border-l-2 border-l-slate-400 border-solid">power</th>
-                    <th className=" text-[10px]  px-1  font-semibold text-[#ffff]  border-l-2 border-l-slate-400 border-solid">accuracy</th>
-                    <th className=" text-[10px]  px-1  font-semibold text-[#ffff]  border-l-2 border-l-slate-400 border-solid">pp</th>
-                    <th className=" text-[10px]  px-1  font-semibold text-[#ffff]  border-l-2 border-l-slate-400 border-solid">effect</th>
+                    <th className=" font-semibold text-[#ffff] px-8 text-[10px] ">
+                      names
+                    </th>
+                    <th className=" text-[10px]  px-1  font-semibold text-[#ffff]  border-l-2 border-l-slate-400 border-solid">
+                      Type
+                    </th>
+                    <th className=" text-[10px]  px-1  font-semibold text-[#ffff]  border-l-2 border-l-slate-400 border-solid">
+                      cat
+                    </th>
+                    <th className=" text-[10px]  px-1  font-semibold text-[#ffff]  border-l-2 border-l-slate-400 border-solid">
+                      power
+                    </th>
+                    <th className=" text-[10px]  px-1  font-semibold text-[#ffff]  border-l-2 border-l-slate-400 border-solid">
+                      accuracy
+                    </th>
+                    <th className=" text-[10px]  px-1  font-semibold text-[#ffff]  border-l-2 border-l-slate-400 border-solid">
+                      pp
+                    </th>
+                    <th className=" text-[10px]  px-1  font-semibold text-[#ffff]  border-l-2 border-l-slate-400 border-solid">
+                      effect
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="text-[15px] text-[#331b03] text-center ">
-                  {pokemon.moves?.map((move:Move,i:number) => {
+                  {pokemon.moves?.map((move: Move, i: number) => {
                     return (
                       <>
-                        <tr key={move.move.name} className=" even:bg-[#d0e4f5] text-[7px] md:text-[15px]">
-                          <Moves moveUrl={move.move.url} key={i} index={i} color={colorType[pokemon?.types[0]?.type?.name]} />
+                        <tr
+                          key={move.move.name}
+                          className=" even:bg-[#d0e4f5] text-[7px] md:text-[15px]"
+                        >
+                          <Moves
+                            moveUrl={move.move.url}
+                            key={i}
+                            index={i}
+                            color={colorType[pokemon?.types[0]?.type?.name]}
+                          />
                         </tr>
                       </>
                     );
@@ -305,10 +280,16 @@ const  topFunction =() => {
                 </tbody>
               </table>
             </div>
-
           </div>
-          <button className="arrowUp fixed rounded-[50%] right-5 bottom-12 w-[50px] h-[50px] bg-black" style={{background: colorType[pokemon?.types[0]?.type?.name]}} onClick={()=> topFunction()} >
-                  <FontAwesomeIcon icon={faArrowUp} className="text-white w-[65%] h-[65%]"  />
+          <button
+            className="arrowUp fixed rounded-[50%] right-5 bottom-12 w-[50px] h-[50px] bg-black"
+            style={{ background: colorType[pokemon?.types[0]?.type?.name] }}
+            onClick={() => topFunction()}
+          >
+            <FontAwesomeIcon
+              icon={faArrowUp}
+              className="text-white w-[65%] h-[65%]"
+            />
           </button>
         </div>
       ) : (

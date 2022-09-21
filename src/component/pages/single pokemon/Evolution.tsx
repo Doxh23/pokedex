@@ -1,8 +1,42 @@
 import React from 'react'
-
-const Evolution = () => {
+import { Link } from 'react-router-dom'
+const Evolution = (prop:any) => {
+    const {evolution,handleTabsChange} = prop
   return (
-    <div>Evolution</div>
+    <>
+    
+    {Object.keys(evolution).map((key, index) => {
+                    return (
+                      <Link
+                        key={index}
+                        className="evolution flex flex-col items-center gap-5"
+                        onClick={() => handleTabsChange("About")}
+                        to={`/SinglePokemon/${evolution[key].id}`}
+                      >
+                        <div className="evolutionName text-center">
+                          {evolution[key].name}
+                        </div>
+                        <div className="evolutionImage">
+                          <img
+                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evolution[key].id}.png`}
+                          />
+                        </div>
+                        <div className="evolutionType">
+                          {evolution[key].evolution_details[0]?.trigger?.name}
+                        </div>
+                        <div className="evolutionLevel">
+                          {evolution[key].evolution_details[0]?.min_level
+                            ? evolution[key].evolution_details[0]?.min_level +
+                              " Min Level"
+                            : evolution[key].evolution_details[0]?.min_happiness
+                            ? evolution[key].evolution_details[0]
+                                ?.min_happiness + " minimum Happiness"
+                            : ""}
+                        </div>
+                      </Link>
+                    );
+                  })}
+    </>
   )
 }
 
