@@ -132,13 +132,18 @@ export interface chain{
         
     }
 interface evolves_to{
+    name:string;
     evolves_to:evolves_to[]
+    evolution_details:evolution_details[]|null
     is_baby:boolean;
     species:{
         name:string;
         url:string;
     }
-    chain:chain
 }
 
 export interface PokemonData extends Pokemon,PokemonSpecies,PokemonEvolutionChain{}
+
+export interface Evolution {
+
+}

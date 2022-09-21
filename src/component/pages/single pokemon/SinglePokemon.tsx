@@ -34,7 +34,6 @@ const  topFunction =() => {
   })
 }
 
-
   const handleTabsChange = (e:string) => {
     let tabs:string|null = "";
     switch (e) {
@@ -61,10 +60,12 @@ const  topFunction =() => {
     if (!data?.chain) {
       return;
     }
-   let dataChain:chain = data.chain;
+    let dataChain:chain = data.chain;
    let workingData:chain = dataChain;
-
+   console.log(workingData)
+   console.log('-----------------------------------------------------')
     do {
+      console.log(dataChain)
       if(dataChain.species){
         workingData = await api(dataChain.species.url);
       }
@@ -72,8 +73,9 @@ const  topFunction =() => {
       setEvolution((prev) => {
         return { ...prev, [workingData.name? workingData.name : '']: workingData };
       });
-      dataChain = data.evolves_to? data.evolves_to[0] : null;
-    } while (data);
+      dataChain = dataChain.evolves_to? dataChain.evolves_to[0] : null;
+      console.log(dataChain)
+    } while (dataChain);
   };
   const params = useParams();
   
@@ -83,12 +85,9 @@ const  topFunction =() => {
     var data3:PokemonEvolutionChain
     const fetchData = async () => {
       data1 = await api(`https://pokeapi.co/api/v2/pokemon/${params.id}`);
-     console.log(data1)
      
        data2 = await api(data1.species.url);
-      console.log(data2)
       data3 = await api(data2.evolution_chain.url);
-      console.log(data3)
       setpokemon({ ...data1, ...data2, ...data3 });
       setloading(false);
     };
@@ -215,8 +214,8 @@ const  topFunction =() => {
                   <div className="stat flex flex-row items-center gap-3 text-center h-[300px] rounded-t   w-full">
                     {pokemon.stats?.map((stat:any) => {
                       return (
-                        <div
-                          className={` ${stat.stat.name} flex flex-col justify-start gap-2 w-[16%] p-[5px] h-full max-w-[15%]`}
+                        <div key={stat.stat.name}
+                          className={` ${stat.stat.name}  flex flex-col justify-start gap-2 w-[16%] p-[5px] h-full max-w-[15%]`}
                         >
                           <div className="bar h-[230px]  content-between rounded-b-md rotate-180 shadow">
                             <div
@@ -248,6 +247,7 @@ const  topFunction =() => {
                   {Object.keys(evolution).map((key, index) => {
                     return (
                       <Link
+                      key={index}
                         className="evolution flex flex-col items-center gap-5"
                         onClick={() => handleTabsChange("About")}
                         to={`/SinglePokemon/${evolution[key].id}`}
@@ -296,8 +296,8 @@ const  topFunction =() => {
                   {pokemon.moves?.map((move:Move,i:number) => {
                     return (
                       <>
-                        <tr className=" even:bg-[#d0e4f5] text-[7px] md:text-[15px]">
-                          <Moves moveUrl={move.move.url} index={i} color={colorType[pokemon?.types[0]?.type?.name]} />
+                        <tr key={move.move.name} className=" even:bg-[#d0e4f5] text-[7px] md:text-[15px]">
+                          <Moves moveUrl={move.move.url} key={i} index={i} color={colorType[pokemon?.types[0]?.type?.name]} />
                         </tr>
                       </>
                     );
