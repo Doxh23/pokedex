@@ -27,6 +27,7 @@ import { Move, Pokemon } from './pages/single pokemon/type';
       ghost: "#705898",
       fighting: "#C03028",
     };
+  
     const categoryMove = {
       physical: 'https://img.pokemondb.net/images/icons/move-physical.png',
       special: "https://img.pokemondb.net/images/icons/move-special.png",

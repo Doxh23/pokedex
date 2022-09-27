@@ -4,7 +4,7 @@ const BaseStats = (prop:any) => {
   const {pokemon} = prop
   return (
     <>
-      <div className="baseStats py-4 flex flex-col gap-5 w-[90%] mx-auto rounded" style={{background: colorType[pokemon?.types[0].type?.name]}}>
+      <div className="baseStats mb-6 py-4 flex flex-col gap-5 w-[90%] mx-auto rounded" style={{background: colorType[pokemon?.types[0].type?.name]}}>
         {pokemon.stats.map((stat:any, index:number) => {
           return (
             <div key={index} className="stat flex flex-row gap-5 h-[16%] px-3">
@@ -13,7 +13,7 @@ const BaseStats = (prop:any) => {
                 <div className="value">
                   {stat.base_stat}
                 </div>
-                <div className="statValueBar shadow w-[100%]    rounded ">
+                <div className="statValueBar shadow w-[100%] rounded ">
                   <div className="bar rounded bg-white h-[100%]" style={{width: `${(stat.base_stat / 250) * 100}%`}}></div>
                 </div>
               </div>                

@@ -59,6 +59,7 @@ interface evolves_details{
 
 export interface Move{
         move: any;
+        id: number;
         type:{
             name:string;
             url:string;

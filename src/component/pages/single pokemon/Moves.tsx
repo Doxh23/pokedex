@@ -3,6 +3,7 @@ import { useState,useEffect } from 'react'
 import { categoryMove } from '../../utils'
 import { Move } from './type'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const Moves = (prop:any) => {
 
@@ -35,7 +36,7 @@ const Moves = (prop:any) => {
   return (
     <>
     
-    <td className={`py-[3px] px-[2px] font-black text-[10px]  `} style={{background: bgcolor,color: textColor}}>{move?.name?.toUpperCase()}</td>
+    <td className={`py-[3px] px-[2px] font-black text-[10px]  `} style={{background: bgcolor,color: textColor}}><Link to={`/Moves/${move?.id}`}>{move?.name?.toUpperCase()}</Link></td>
     <td className='  font-semibold  ' style={{background: bgcolor,color: textColor}} >{move?.type?.name}</td>
     <td className='font-semibold  ' style={{background: bgcolor,color: textColor}}><img src={`${ categoryMove[move?.damage_class?.name]}`} alt={``} /></td>
     <td className='font-semibold  ' style={{background: bgcolor,color: textColor}}>{move?.power}</td>

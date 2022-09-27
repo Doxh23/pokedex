@@ -23,9 +23,11 @@ import { Link } from "react-router-dom";
 import Moves from "./Moves";
 import { evolution } from "./type";
 import { workerData } from "worker_threads";
+import Loading from "../../layout/Loading";
 const SinglePokemon = () => {
   const [pokemon, setpokemon] = useState<PokemonEvolutionChain>();
   const [loading, setloading] = useState<boolean>(true);
+  const [pokemonColor, setpokemonColor] = useState<string>("");
   const [tabActive, settabActive] = useState<string | null>("About");
   const [evolution, setEvolution] = useState<object>({});
   const [test, settest] = useState<boolean>(true);
@@ -94,6 +96,7 @@ const SinglePokemon = () => {
       data2 = await api(data1.species.url);
       data3 = await api(data2.evolution_chain.url);
       setpokemon({ ...data1, ...data2, ...data3 });
+      setpokemonColor(data1.types[0].type.name);
       setloading(false);
     };
     fetchData();
@@ -105,17 +108,17 @@ const SinglePokemon = () => {
           className="card-singlePokemon scroll-smooth  "
           id="singlePokemon"
           style={{
-            backgroundColor: colorType[pokemon?.types[0]?.type?.name],
+            backgroundColor: colorType[pokemonColor],
             color: "black",
           }}
         >
           <h1 className="name text-center text-white pt-5 text-6xl font-semibold">
             {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
           </h1>
-          <div className="sprite w-1/5 flex m-auto">
+          <div className="sprite w-full flex m-auto">
             <img
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${params.id}.png`}
-              className="m-auto min-w-full min-h-full"
+              className="m-auto  w-[250px] h-[250px]"
               alt={pokemon.name}
             />
           </div>
@@ -138,7 +141,7 @@ const SinglePokemon = () => {
               <div
                 style={
                   tabActive === "About"
-                    ? { color: colorType[pokemon?.types[0]?.type?.name] }
+                    ? { color: colorType[pokemonColor] }
                     : null
                 }
                 onClick={() => handleTabsChange("About")}
@@ -150,7 +153,7 @@ const SinglePokemon = () => {
               <div
                 style={
                   tabActive === "BaseStats"
-                    ? { color: colorType[pokemon?.types[0]?.type?.name] }
+                    ? { color: colorType[pokemonColor] }
                     : null
                 }
                 onClick={() => handleTabsChange("BaseStats")}
@@ -162,7 +165,7 @@ const SinglePokemon = () => {
               <div
                 style={
                   tabActive === "Evolution"
-                    ? { color: colorType[pokemon?.types[0]?.type?.name] }
+                    ? { color: colorType[pokemonColor] }
                     : null
                 }
                 onClick={() => {
@@ -177,7 +180,7 @@ const SinglePokemon = () => {
               <div
                 style={
                   tabActive === "Moves"
-                    ? { color: colorType[pokemon?.types[0]?.type?.name] }
+                    ? { color: colorType[pokemonColor] }
                     : null
                 }
                 onClick={() => handleTabsChange("Moves")}
@@ -211,15 +214,15 @@ const SinglePokemon = () => {
                 <BaseStats pokemon={pokemon} />
               </div>
               <div
-                className="evolutions"
+                className="evolutions mb-8"
                 style={
                   tabActive === "Evolution"
                     ? { display: "inline" }
                     : { display: "none" }
                 }
               >
-                <div className="evolution flex flex-row gap-10 w-full justify-evenly">
-                    <Evolution handleTabsChange={handleTabsChange} evolution={evolution} />
+                <div className="evolution flex flex-row gap-5  w-full justify-evenly">
+                    <Evolution handleTabsChange={handleTabsChange} evolution={evolution} pokemonColor={pokemonColor} />
                 </div>
               </div>
             </div>
@@ -232,7 +235,7 @@ const SinglePokemon = () => {
                 <thead
                   className=" border-b-slate-900 border-b-[2px] border-solid "
                   style={{
-                    background: colorType[pokemon?.types[0]?.type?.name],
+                    background: colorType[pokemonColor],
                   }}
                 >
                   <tr className="gap-5 text-center text-[1px] ">
@@ -271,7 +274,7 @@ const SinglePokemon = () => {
                             moveUrl={move.move.url}
                             key={i}
                             index={i}
-                            color={colorType[pokemon?.types[0]?.type?.name]}
+                            color={colorType[pokemonColor]}
                           />
                         </tr>
                       </>
@@ -283,7 +286,7 @@ const SinglePokemon = () => {
           </div>
           <button
             className="arrowUp fixed rounded-[50%] right-5 bottom-12 w-[50px] h-[50px] bg-black"
-            style={{ background: colorType[pokemon?.types[0]?.type?.name] }}
+            style={{ background: colorType[pokemonColor] }}
             onClick={() => topFunction()}
           >
             <FontAwesomeIcon
@@ -293,10 +296,7 @@ const SinglePokemon = () => {
           </button>
         </div>
       ) : (
-        <div className="w-screen h-screen text-center bg-white text-white flex justify-center items-center ">
-          {" "}
-          <div className="spinner rounded-[50%]  border-b-2 w-20 h-20 animate-spin border-gray-900 border-solid"></div>
-        </div>
+        <Loading />
       )}
     </>
   );

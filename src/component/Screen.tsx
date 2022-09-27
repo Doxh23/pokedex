@@ -19,6 +19,7 @@ const Component = (props:any) => {
           <Route path="/singlePokemon/:id" element={<SinglePokemon />} />
           <Route path="/category/:category" element={<PokemonList category={Category}   offSet={offSet} setOffSet={setOffSet} loading={loading} setPokemonData={setPokemonData} PokemonData={PokemonData} />} />
             <Route path="/moves" element={<Moves />} />
+            <Route path="/moves/:id" element={<Moves />} />
             <Route path="/abilities" element={<Abilities />} />
             <Route path="/items" element={<Items />} />
             <Route path="/locations" element={<Locations />} />

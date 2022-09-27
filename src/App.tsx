@@ -7,7 +7,7 @@ import Component from "./component/Screen";
 import Category from "./component/pages/Home/Category";
 import { useLocation } from "react-router-dom";
 import NavBar from "./component/layout/NavBar";
-import Pokemon from "./component/pages/Home/Pokemon";
+import Loading from "./component/layout/Loading";
 
 function App<JsxElement>() {
   const [PokemonData, setPokemonData] = useState<PokemonData|object>({});
@@ -39,6 +39,7 @@ interface category{
 
   useEffect(() => {
     let data:PokemonData
+    setloading(true);
     const fetchDataPokemon = async ():Promise<void> => {
       data = await axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=${offSet}&limit=20`).then(res => res.data);
       setPokemonData(data);
@@ -87,7 +88,7 @@ interface category{
           </main>
         </>
       ) : (
-        <div>Loading...</div>
+        <Loading />
       )}
     </div>
   );

@@ -80,7 +80,7 @@ const About = (prop:any) => {
                         <h3 className={` underline mb-5`}>{ability?.name}</h3>
                         <p>
                           {Object.keys(ability?.effect_entries).map(
-                            (key, index) => {
+                            (key) => {
                               if (
                                 ability?.effect_entries[key].language.name ===
                                 "en"
@@ -98,14 +98,15 @@ const About = (prop:any) => {
                     )}
                   </div>
 
-                  <div className="breading  ml-5  flex flex-col items-start">
+                  <div className="breading    flex flex-col items-start">
                     <h3 className="text-slate-900 w-full font-black">
                       Breading
                     </h3>
-                    <div className="Gender flex flex-row gap-4 w-full pl-[20%] justify-start">
+                    <div className="Gender flex flex-row justify-evenly  w-full m-auto">
                       <h4 className="text-start text-slate-500 w-2/6 ">
                         Gender:
                       </h4>
+                      <div className="genderRate flex flex-row gap-1 text-start w-2/6">
                       <p>
                         {" "}
                         <FontAwesomeIcon
@@ -114,28 +115,29 @@ const About = (prop:any) => {
                         />{" "}
                         {100 - RatioToPercent(pokemon.gender_rate)}
                       </p>
-                      <p className="female flex flex-row gap-4 ">
+                      <p className="female flex flex-row ">
                         <FontAwesomeIcon
                           icon={faVenus}
                           className=" text-pink-400"
                         />{" "}
                         {RatioToPercent(pokemon.gender_rate)}
                       </p>
+                      </div>
                     </div>
-                    <div className="eggGroup flex flex-row gap-4 justify-start pl-[20%] w-full ">
+                    <div className="eggGroup flex flex-row justify-evenly  w-full m-auto ">
                       <h4 className="text-start text-slate-500 w-2/6 ">
                         Egg group:
                       </h4>
-                      <div className="eggType">
+                      <div className="eggType w-2/6 text-start">
                         {" "}
                         {pokemon.egg_groups[0].name}{" "}
                       </div>
                     </div>
-                    <div className="eggCycle flex flex-row mx-2/6 w-full justify-start pl-[20%]  gap-4">
+                    <div className="eggCycle flex flex-row justify-evenly  w-full m-auto">
                       <h4 className="text-start text-slate-500 w-2/6 ">
-                        egg cycle
+                        Egg cycle:
                       </h4>
-                      <div className="eggCycle">
+                      <div className="eggCycle text-start w-2/6">
                         {pokemon.types[0].type.name}
                       </div>
                     </div>
@@ -149,7 +151,7 @@ const About = (prop:any) => {
                     </h2>
 
                     <div className="talents flex flex-row justify-evenly">
-                      {pokemon.abilities?.map((ability) => {
+                      {pokemon.abilities?.map((ability:any) => {
                         return (
                           <>
                             {" "}

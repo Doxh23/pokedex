@@ -1,15 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { colorType } from '../../utils'
 const Evolution = (prop:any) => {
-    const {evolution,handleTabsChange} = prop
+    const {evolution,handleTabsChange,pokemonColor} = prop
+    console.log(pokemonColor)
   return (
     <>
     
     {Object.keys(evolution).map((key, index) => {
                     return (
-                      <Link
+                      <Link 
                         key={index}
-                        className="evolution flex flex-col items-center gap-5"
+                        className="evolution flex flex-col items-center gap-5 p-4 text-white font-medium text-center rounded"
+                        style={{backgroundColor: colorType[pokemonColor]} }
                         onClick={() => handleTabsChange("About")}
                         to={`/SinglePokemon/${evolution[key].id}`}
                       >
