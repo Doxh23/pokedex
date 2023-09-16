@@ -179,7 +179,7 @@ const NavBar = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/moves">
+                {/* <Link to="/moves">
                   <FontAwesomeIcon
                     icon={faHollyBerry}
                     className="text-blue-200 hover:text-violet-500 text-4xl"
@@ -234,7 +234,7 @@ const NavBar = () => {
                     className="text-blue-200 hover:text-violet-500 text-4xl"
                     onClick={() => setisNavOpen(false)}
                   />
-                </Link>
+                </Link> */}
               </li>
             </ul>
           </div>
