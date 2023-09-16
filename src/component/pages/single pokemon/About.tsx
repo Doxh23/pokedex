@@ -8,7 +8,7 @@ import waitForElementTransition from "wait-for-element-transition";
 const About = (prop:any) => {
     const {pokemon} = prop
     const [ability, setability] = useState<any>();
-
+  console.log(pokemon.abilities)
     const fetchAbility = async (url:string) => {
         const res = await api(url);
         setability(res);
@@ -119,7 +119,7 @@ const About = (prop:any) => {
                         <FontAwesomeIcon
                           icon={faVenus}
                           className=" text-pink-400"
-                        />{" "}
+                        />
                         {RatioToPercent(pokemon.gender_rate)}
                       </p>
                       </div>
@@ -146,20 +146,16 @@ const About = (prop:any) => {
                   {/*  */}
                   <div className="abilities ml-5 flex-col">
                     <h2 className="text-slate-900 w-full font-black">
-                      {" "}
                       Talents
                     </h2>
-
                     <div className="talents flex flex-row justify-evenly">
                       {pokemon.abilities?.map((ability:any) => {
                         return (
-                          <>
-                            {" "}
-                            <div
+                          
+                            <div key={ability.ability.name}
                               className={`ability-${ability.ability.name} flex gap-2 flex-row`}
                             >
-                              {" "}
-                              <p key={ability.ability.name}>
+                              <p >
                                 {ability.ability.name}
                               </p>
                               <FontAwesomeIcon
@@ -171,7 +167,7 @@ const About = (prop:any) => {
                                 }}
                               />
                             </div>
-                          </>
+                          
                         );
                       })}
                     </div>

@@ -2,13 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 * {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
 .pokeballCursor {
-  cursor: url("https://image.emojipng.com/727/13737727.jpg"), auto;
-}
-/*# sourceMappingURL=style.css.map */
+  cursor: url("../assets/pokeball.png"), context-menu;
+}/*# sourceMappingURL=style.css.map */

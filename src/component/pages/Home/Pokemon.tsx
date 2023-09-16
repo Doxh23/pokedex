@@ -14,7 +14,6 @@ const Pokemon = (props) => {
   }, []);
   console.log(dataPokemon)
   return (
-    <Link className="pokemon-card  pokeballCursor" style={{backgroundColor: "transparent"}} to={`/SinglePokemon/${takePokemonId(pokemon.url)}`} key={takePokemonId(pokemon.url)}>
     <div className=' rounded my-4 bg-purple-900 hover:bg-purple-500 pokemon-card' key={takePokemonId(pokemon.url)}>
     
                 <h2 className='text-white font-semibold text-xl text-center'>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
@@ -24,10 +23,11 @@ const Pokemon = (props) => {
                     pokemon.url
                   )}.png`}
                   alt={pokemon.name}
+                  key={takePokemonId(pokemon.url)}
                 />
                 <div className="types flex flex-row text-center justify-center gap-36">
                 {dataPokemon && dataPokemon.types.map((type) => (
-                  <p style={{color : colorType[type.type.name]}} className="text-white font-semibold text-xl text-center">{type.type.name}</p>
+                  <p key={type.type.name} style={{color : colorType[type.type.name]}} className="text-white font-semibold text-xl text-center">{type.type.name}</p>
                 ))}
                 </div>
                 <p className='text-white text-center font-semibold'>
@@ -39,7 +39,7 @@ const Pokemon = (props) => {
                     : takePokemonId(pokemon.url)}
                 </p>
                 </div>
-              </Link>
+              
   )
 }
 

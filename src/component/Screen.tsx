@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropsWithChildren, PropsWithRef, PropsWithoutRef } from 'react'
 import {Routes, Route} from 'react-router-dom'
 import PokemonList from './pages/Home/PokemonList'
 import SinglePokemon from './pages/single pokemon/SinglePokemon'
@@ -10,7 +10,7 @@ import Moves from './pages/Moves/Moves'
 import Berries from './pages/berries/Berries'
 import Error from './pages/Error/Error'
 
-const Component = (props:any) => {
+const Component = (props: any) => {
     let   {PokemonData,loading,category,setPokemonData,offSet,setOffSet} = props
   return (
     <>

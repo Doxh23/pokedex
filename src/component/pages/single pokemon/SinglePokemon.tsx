@@ -265,7 +265,7 @@ const SinglePokemon = () => {
                 <tbody className="text-[15px] text-[#331b03] text-center ">
                   {pokemon.moves?.map((move: Move, i: number) => {
                     return (
-                      <>
+                      
                         <tr
                           key={move.move.name}
                           className=" even:bg-[#d0e4f5] text-[7px] md:text-[15px]"
@@ -277,7 +277,7 @@ const SinglePokemon = () => {
                             color={colorType[pokemonColor]}
                           />
                         </tr>
-                      </>
+                      
                     );
                   })}
                 </tbody>

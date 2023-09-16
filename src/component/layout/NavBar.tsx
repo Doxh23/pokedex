@@ -18,7 +18,7 @@ const NavBar = () => {
   }, [location]);
 
   var oldScrollY: number = window.scrollY;
-  window.onscroll = function (e: any) {
+  window.onscroll = function () {
     if (window.scrollY < oldScrollY) {
       sethandleScroll(true);
       console.log("up");
@@ -32,7 +32,7 @@ const NavBar = () => {
 
     oldScrollY = window.scrollY;
   };
-  window.onresize = function (e) {
+  window.onresize = function () {
     setwidthScreen(window.screen.width);
   };
   if (widthScreen > 1024) {
@@ -46,7 +46,7 @@ const NavBar = () => {
             <img src={require("../../assets/logo.png")} alt="" className="w-[13%]"/>
           </div>
           <div className="navbar__menu list-none justify-center flex">
-            <ul className="flex flex-col lg:flex-row justify-end text-center items-center gap-10">
+            <ul className="flex flex-col lg:flex-row justify-end text-center items-center gap-10 px-[25px]">
               <li>
                 <Link to="/">
                   <FontAwesomeIcon
@@ -56,7 +56,7 @@ const NavBar = () => {
                   />
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/moves">
                   <FontAwesomeIcon
                     icon={faHollyBerry}
@@ -113,7 +113,7 @@ const NavBar = () => {
                     onClick={() => setisNavOpen(false)}
                   />
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Pokemon from "./Pokemon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightLong, faLeftLong } from "@fortawesome/free-solid-svg-icons";
@@ -34,12 +35,15 @@ const PokemonList = (props) => {
           !loading &&
           PokemonData.results.map((pokemon:any) => {
             return (
+              <Link className="pokemon-card  pokeballCursor" style={{backgroundColor: "transparent"}} to={`/SinglePokemon/${takePokemonId(pokemon.url)}`} key={takePokemonId(pokemon.url)}>
+
               <Pokemon
-                key={takePokemonId(pokemon.url)}
+                Key={takePokemonId(pokemon.url)}
                 takePokemonId={takePokemonId}
                 pokemon={pokemon}
                
               />
+              </Link>
             );
           })}
       </div>
